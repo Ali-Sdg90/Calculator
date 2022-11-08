@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>W11 Calculator</title>
+    </head>
+    <body>
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0%;
+                color: white;
+                font-family: sans-serif;
+                overflow: hidden;
+                transition: 0.15s;
+                background: rgb(49, 49, 49);
+                text-decoration: none;
+                --windows-blue: rgb(84, 193, 252);
+                --windows-light-gray: rgb(84, 84, 84);
+                --windows-dark-gray: rgb(68, 68, 68);
+                cursor: default;
+            }
+            ::selection {
+                background: transparent;
+            }
+            /*ↈ*/
+            /* 1401/07/09 */
+            .calculator div,
+            .calculator p {
+                border: px solid black;
+            }
+            .calculator {
+                width: 100vw;
+                height: 100vh;
+                display: grid;
+                grid-template-columns: auto 320px;
+                grid-template-rows: 6% 6% 20% 5% 63%;
+                grid-template-areas:
+                    "header     header"
+                    "standard   history"
+                    "calculate  history"
+                    "mode       history"
+                    "numbers    history";
+            }
+            .header {
+                grid-area: header;
+                display: grid;
+                grid-template-columns: 33px 77px auto 44px 44px 44px;
+                grid-template-rows: auto;
+                padding: 6px;
+            }
+            .header div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 0.9rem;
+            }
+            .header div:last-child {
+                padding-bottom: 3px;
+            }
+            .standard {
+                grid-area: standard;
+                font-size: 0;
+                display: grid;
+                grid-template-columns: auto 45px;
+                grid-template-rows: 100%;
+            }
+            .standard-1 {
+                margin: 4px 6px;
+            }
+            .standard-1 p,
+            .standard-2 {
+                font-size: 1.2rem;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 4px;
+            }
+            .standard-1 p {
+                padding: 7px;
+                height: 100%;
+            }
+            .standard-2 {
+                visibility: hidden;
+                padding: 0;
+                margin: 4px 6px;
+            }
+            div.standard-2 a {
+                padding: 5px;
+            }
+            .standard-1 p:first-child {
+                transform: rotate(90deg);
+            }
+            .standard-1 p:last-child {
+                font-size: 1.1rem;
+                position: relative;
+                top: -2px;
+                left: 4px;
+            }
+            .calculate {
+                grid-area: calculate;
+                font-size: 2.8rem;
+                padding: 20px 10px;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+            }
+            .mode {
+                grid-area: mode;
+                font-size: 0;
+                max-width: 400px;
+                margin-bottom: 1px;
+            }
+            .mode div {
+                font-size: 16px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                width: 20%;
+                border-radius: 4px;
+            }
+            .mode div:nth-child(1),
+            .mode div:nth-child(2) {
+                color: gray;
+            }
+            .history {
+                grid-area: history;
+            }
+            .history span {
+                display: grid;
+                grid-template-columns: 70px 70px auto;
+                grid-template-rows: 25px 10px;
+            }
+            .history span div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .history span hr {
+                width: 17px;
+                border: 2px solid var(--windows-blue);
+                border-radius: 10px;
+                background: var(--windows-blue);
+            }
+            .history p {
+                padding: 20px 0 0 10px;
+            }
+            .numbers {
+                grid-area: numbers;
+                display: grid;
+                grid-template-columns: repeat(4, auto);
+                grid-template-rows: repeat(6, auto);
+                grid-gap: 2px;
+                padding: 2px;
+            }
+            .numbers div {
+                background: var(--windows-dark-gray);
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+            div.num {
+                background: var(--windows-light-gray);
+            }
+            .numbers div:hover {
+                background: var(--windows-light-gray);
+            }
+            div.num:hover {
+                background: var(--windows-dark-gray);
+            }
+            .numbers div:last-child {
+                background: var(--windows-blue);
+                color: black;
+            }
+            .header div:last-child:hover {
+                background: rgba(255, 31, 31, 0.708);
+            }
+            .numbers div:last-child:hover {
+                background: var(--windows-blue);
+                opacity: 0.85;
+            }
+            .btn-hover,
+            .header div:last-child:hover {
+                cursor: pointer;
+            }
+            .btn-hover:hover {
+                background: rgba(84, 84, 84, 0.73);
+            }
+            .btn-hover:active,
+            .numbers div:active,
+            .numbers div:last-child:active,
+            .header div:last-child:active {
+                opacity: 0.7;
+            }
+            @media screen and (max-width: 555px) {
+                .standard-2 {
+                    visibility: visible;
+                }
+                .calculator {
+                    width: 100vw;
+                    height: 100vh;
+                    display: grid;
+                    grid-template-columns: 100%;
+                    grid-template-rows: 6% 6% 20% 5% 63%;
+                    grid-template-areas:
+                        "header     header"
+                        "standard   standard"
+                        "calculate  calculate"
+                        "mode       mode"
+                        "numbers    numbers";
+                }
+            }
+        </style>
+        <div class="calculator">
+            <div class="header">
+                <div>▯</div>
+                <div>Calculator</div>
+                <div></div>
+                <div class="btn-hover">–</div>
+                <div class="btn-hover">▢</div>
+                <div>✕</div>
+            </div>
+            <div class="standard">
+                <div class="standard-1">
+                    <p class="btn-hover">lll</p>
+                    <p>Standard</p>
+                    <p class="btn-hover">⊞</p>
+                </div>
+                <div class="standard-2">
+                    <a class="btn-hover" href="https://b2n.ir/r83149">ↈ</a>
+                </div>
+            </div>
+            <div class="calculate">0</div>
+            <div class="mode">
+                <div>MC</div>
+                <div>MR</div>
+                <div class="btn-hover">M+</div>
+                <div class="btn-hover">M-</div>
+                <div class="btn-hover">MS</div>
+            </div>
+            <div class="history">
+                <span>
+                    <div>History</div>
+                    <div>Memory</div>
+                    <div></div>
+                    <div><hr /></div>
+                    <div></div>
+                    <div></div>
+                </span>
+                <p>There's no history yet</p>
+            </div>
+            <div class="numbers">
+                <div>%</div>
+                <div>CE</div>
+                <div>C</div>
+                <div>DEL</div>
+                <div>1/X</div>
+                <div>X^2</div>
+                <div>2√X</div>
+                <div>÷</div>
+                <div class="num">7</div>
+                <div class="num">8</div>
+                <div class="num">9</div>
+                <div>X</div>
+                <div class="num">4</div>
+                <div class="num">5</div>
+                <div class="num">6</div>
+                <div>–</div>
+                <div class="num">1</div>
+                <div class="num">2</div>
+                <div class="num">3</div>
+                <div>+</div>
+                <div class="num">+/-</div>
+                <div class="num">0</div>
+                <div class="num">/</div>
+                <div>=</div>
+            </div>
+        </div>
+    </body>
+</html>
