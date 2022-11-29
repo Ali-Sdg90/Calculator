@@ -2,28 +2,29 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
     font-size: 16px;
-    transition: color 0.15s, background 0.15s;
     text-decoration: none;
-    /* light mode: */
-    color: black;
+    color: var(--main-color);
+    background: var(--background);
+    transition: var(--transition);
+    font-family: var(--font-family);
+    font-style: var(--font-style);
+    cursor: default;
+}
+:root {
+    --font-family: sans-serif;
+    --font-style: normal;
+    --transition: color 0.15s, background 0.15s;
+    --radius-keys: 2px;
+    --radius-btns: 4px;
+    --main-color: black;
     --background: rgb(203, 203, 203);
-    --dcolor: rgb(208, 134, 65);
-    --light-color: rgb(241, 241, 241);
-    --dark-color: rgb(228, 228, 228);
+    --line-color: rgb(208, 134, 65);
+    --light-key-color: rgb(241, 241, 241);
+    --dark-key-color: rgb(228, 228, 228);
     --btn-hover: rgb(188, 188, 188);
     --btn-active: rgb(191, 191, 191);
-    /* dark mode: */
-    /* color: white;
-    --background:rgb(36, 36, 40);
-    --dcolor: rgb(65, 115, 208);
-    --light-color: rgb(80, 79, 86);
-    --dark-color: rgb(65, 64, 71);
-    --btn-hover: rgba(84, 84, 84, 0.73);
-    --btn-active: rgb(28, 28, 31); */
-    background: var(--background);
-    cursor: default;
+    --key-hover: #c8c8c8;
 }
 ::selection {
     background: transparent;
@@ -63,6 +64,9 @@ body {
     align-items: center;
     font-size: 0.9rem;
 }
+#app-name {
+    margin-top: 5px;
+}
 .windows-nav div {
     width: 44px;
     height: 100%;
@@ -77,6 +81,9 @@ body {
     grid-template-columns: auto 45px;
     grid-template-rows: 100%;
 }
+#change-theme {
+    font-style: normal;
+}
 .standard-1 {
     display: flex;
     align-items: center;
@@ -88,7 +95,7 @@ body {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    border-radius: 4px;
+    border-radius: var(--radius-btns);
 }
 .standard-2 {
     visibility: visible;
@@ -99,7 +106,7 @@ div.standard-2 a {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 4px;
+    border-radius: var(--radius-btns);
 }
 .standard-1 p:first-child {
     transform: rotate(90deg);
@@ -133,7 +140,7 @@ div.standard-2 a {
     justify-content: center;
     height: 100%;
     width: 20%;
-    border-radius: 4px;
+    border-radius: var(--radius-btns);
 }
 .mode div:nth-child(1),
 .mode div:nth-child(2) {
@@ -158,9 +165,9 @@ div.standard-2 a {
 }
 .history span hr {
     width: 53px;
-    border: 1px solid var(--dcolor);
+    border: 1px solid var(--line-color);
     border-radius: 10px;
-    background: var(--dcolor);
+    background: var(--line-color);
 }
 .history p {
     padding: 17px 0 0 10px;
@@ -169,26 +176,26 @@ div.standard-2 a {
 .numbers {
     grid-area: numbers;
     display: grid;
-    grid-template-columns: repeat(4, auto);
-    grid-template-rows: repeat(6, auto);
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
     grid-gap: 2px;
     padding: 2px;
 }
 .numbers div {
-    background: var(--dark-color);
-    border-radius: 2px;
+    background: var(--dark-key-color);
+    border-radius: var(--radius-keys);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
 }
 div.lighter-key {
-    background: var(--light-color);
+    background: var(--light-key-color);
     font-weight: 600;
     font-size: 1.5rem;
 }
 .numbers div:hover {
-    background: var(--background);
+    background: var(--key-hover);
 }
 .windows-nav div:last-child:hover {
     background: rgb(218, 60, 60);
@@ -321,14 +328,14 @@ div.history span div:nth-child(2):hover {
         display: inline-flex;
     }
     .numbers {
-        grid-template-columns: repeat(5, auto);
-        grid-template-rows: repeat(5, auto);
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, 1fr);
     }
 }
 @media screen and (max-height: 620px) {
     .calculator .numbers {
-        grid-template-columns: repeat(4, auto);
-        grid-template-rows: repeat(6, auto);
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(6, 1fr);
     }
     .numbers div:nth-child(1) {
         order: 1;
