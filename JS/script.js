@@ -1,6 +1,6 @@
 const themeBtn = document.getElementById("change-theme");
 const localTheme = localStorage.getItem("localTheme");
-let themeCounter = 0;
+let themeCounter = 1;
 
 if (localTheme) themeCounter = localTheme;
 changeTheme();
@@ -92,6 +92,10 @@ function changeTheme() {
         document.documentElement.style.setProperty("--btn-active", "#2e802c");
         document.documentElement.style.setProperty("--radius-keys", "16px");
         document.documentElement.style.setProperty("--radius-btns", "20px");
+        document.documentElement.style.setProperty(
+            "--font-family",
+            "monospace"
+        );
     }
     //blue ⇩
     if (themeCounter == 3) {

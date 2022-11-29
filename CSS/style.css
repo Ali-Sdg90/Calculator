@@ -8,7 +8,7 @@
     background: var(--background);
     transition: var(--transition);
     font-family: var(--font-family);
-    font-style: var(--font-style);
+    font-style: normal;
     cursor: default;
 }
 :root {
@@ -63,6 +63,7 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 0.9rem;
+    font-family: sans-serif;
 }
 #app-name {
     margin-top: 5px;
@@ -81,8 +82,8 @@ body {
     grid-template-columns: auto 45px;
     grid-template-rows: 100%;
 }
-#change-theme {
-    font-style: normal;
+#change-theme{
+    font-family: sans-serif;
 }
 .standard-1 {
     display: flex;
@@ -182,6 +183,7 @@ div.standard-2 a {
     padding: 2px;
 }
 .numbers div {
+    font-style: var(--font-style);
     background: var(--dark-key-color);
     border-radius: var(--radius-keys);
     display: flex;
