@@ -82,7 +82,7 @@ body {
     grid-template-columns: auto 45px;
     grid-template-rows: 100%;
 }
-#change-theme{
+#change-theme {
     font-family: sans-serif;
 }
 .standard-1 {
