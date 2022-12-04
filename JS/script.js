@@ -102,12 +102,20 @@ const calculateOutput = document.getElementById("calculate-output");
 const tempHistory = document.getElementById("temp-history");
 let parCounter = 0;
 let calcAnswer = "";
-addNum = true;
-deleteOutput = false;
+let addNum = true;
+let deleteOutput = false;
+let newHistory = "";
+calculateOutput.textContent = 0;
 keys.forEach(function (key) {
     key.addEventListener("click", function () {
-        if (calculateOutput.textContent == "0")
-            calculateOutput.textContent = "";
+        if (newHistory) {
+            tempHistory.textContent = newHistory;
+            console.log(newHistory);
+            calcAnswer = newHistory;
+            newHistory = "";
+        }
+        if (deleteOutput) calculateOutput.textContent = "";
+        deleteOutput = false;
         switch (key.textContent) {
             case "DEL":
                 if (
@@ -177,15 +185,12 @@ keys.forEach(function (key) {
             case "=":
                 parCounter = 0;
                 tempHistory.textContent += calculateOutput.textContent;
-                calcAnswer += calculateOutput.textContent;
                 tempHistory.textContent += " = ";
-                for (i of calcAnswer) {
-                    calcAnswer = calcAnswer.replace(/×/g, "*");
-                    calcAnswer = calcAnswer.replace(/÷/g, "/");
-                }
-                console.log(calcAnswer);
-                calculateOutput.textContent = eval(calcAnswer);
+                calcAnswer = showAns();
+                calculateOutput.textContent = calcAnswer;
+                newHistory = calcAnswer;
                 calcAnswer = "";
+                deleteOutput = true;
                 break;
 
             case "+":
@@ -202,23 +207,38 @@ keys.forEach(function (key) {
                 else tempHistory.textContent += " " + key.textContent + " ";
                 addNum = true;
                 deleteOutput = true;
-                calcAnswer += calculateOutput.textContent + key.textContent;
+                showAns();
+                calcAnswer += key.textContent;
                 break;
+            case "0":
+            case "1":
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+            case "7":
+            case "8":
+            case "9":
+                if (calculateOutput.textContent == "0")
+                    calculateOutput.textContent = "";
+            // break;
             default:
-                if (deleteOutput) calculateOutput.textContent = "";
-                deleteOutput = false;
                 calculateOutput.textContent += key.textContent;
         }
         if (!calculateOutput.textContent) calculateOutput.textContent = "0";
     });
 });
-function resultMaker() {
-    let calculateString = tempHistory.textContent;
-    for (i of calculateString) {
-        calculateString = calculateString.replace(/×/g, "*");
-        calculateString = calculateString.replace(/÷/g, "/");
+function showAns() {
+    calcAnswer += calculateOutput.textContent;
+    for (i of calcAnswer) {
+        calcAnswer = calcAnswer.replace(/×/g, "*");
+        calcAnswer = calcAnswer.replace(/÷/g, "/");
     }
-    // calculateOutput.textContent = eval(calculateString);
+    console.log(calcAnswer);
+    let tempCalc = eval(calcAnswer);
+    calculateOutput.textContent = tempCalc;
+    return tempCalc;
 }
 let rootNum;
 function closePar(operation) {
@@ -231,16 +251,5 @@ function closePar(operation) {
             rootNum,
             `${operation}${rootNum} ) `
         );
-    // console.log(beforPar);
-    // let OutputLength = calculateOutput.textContent.length();
-    // calculateOutput.textContent = calculateOutput.textContent.split(OutputLength,OutputLength);
-    // tempHistory.textContent = beforPar;
-    // for (let i = 0; i < parCounter; i++) {
-    //     tempHistory.textContent += operation;
-    // }
-    // tempHistory.textContent += rootNum + "";
-    // for (let i = 0; i < parCounter; i++) {
-    //     tempHistory.textContent += "";
-    // }
     addNum = false;
 }

@@ -137,6 +137,7 @@ div.standard-2 a {
     display: flex;
     flex-direction: column;
     padding: 10px 10px 25px;
+    overflow: hidden;
 }
 #calculate div {
     display: flex;
@@ -148,6 +149,10 @@ div.standard-2 a {
     font-weight: 100;
     padding-right: 10px;
     height: 28px;
+    border: 1px solid red;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 #calculate-output {
     height: 100%;
