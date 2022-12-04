@@ -100,6 +100,7 @@ themeBtn.addEventListener("click", function () {
 const keys = Array.from(document.getElementsByClassName("key"));
 const calculateOutput = document.getElementById("calculate-output");
 const tempHistory = document.getElementById("temp-history");
+let parCounter = 0;
 keys.forEach(function (key) {
     key.addEventListener("click", function () {
         if (calculateOutput.textContent == "0")
@@ -132,15 +133,14 @@ keys.forEach(function (key) {
                 break;
 
             case "2√x":
-                tempHistory.textContent += `√ ( ${calculateOutput.textContent} ) `;
+                closePar("√ ( ");
                 calculateOutput.textContent = Math.sqrt(
                     calculateOutput.textContent
                 );
                 break;
 
             case "X^2":
-                tempHistory.textContent += `sqr ( ${calculateOutput.textContent} `;
-                
+                closePar("sqr ( ");
                 calculateOutput.textContent = Math.pow(
                     calculateOutput.textContent,
                     2
@@ -148,7 +148,7 @@ keys.forEach(function (key) {
                 break;
 
             case "X^3":
-                tempHistory.textContent += `cube ( ${calculateOutput.textContent} `;
+                closePar("cube ( ");
                 calculateOutput.textContent = Math.pow(
                     calculateOutput.textContent,
                     3
@@ -167,6 +167,7 @@ keys.forEach(function (key) {
                 break;
 
             case "=":
+                parCounter = 0;
                 for (i of calculateOutput.textContent) {
                     calculateOutput.textContent =
                         calculateOutput.textContent.replace(/×/g, "*");
@@ -177,9 +178,30 @@ keys.forEach(function (key) {
                 resetCalc = true;
                 break;
 
+            case ("+", "-", "×", "÷"):
+                closePar();
             default:
                 calculateOutput.textContent += key.textContent;
         }
         if (!calculateOutput.textContent) calculateOutput.textContent = "0";
     });
 });
+let beforPar;
+let rootNum;
+function closePar(operation) {
+    parCounter++;
+    console.log(parCounter);
+    if (parCounter == 1) {
+        beforPar = tempHistory.textContent;
+        rootNum = calculateOutput.textContent;
+    }
+    console.log(beforPar);
+    tempHistory.textContent = beforPar;
+    for (let i = 0; i < parCounter; i++) {
+        tempHistory.textContent += operation;
+    }
+    tempHistory.textContent += rootNum + " ";
+    for (let i = 0; i < parCounter; i++) {
+        tempHistory.textContent += ") ";
+    }
+}
