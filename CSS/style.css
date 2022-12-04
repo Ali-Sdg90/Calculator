@@ -103,7 +103,6 @@ body {
 .standard-1 {
     display: flex;
     align-items: center;
-    /* overflow: hidden; */
 }
 .standard-1 p,
 .standard-2 {
@@ -137,11 +136,9 @@ div.standard-2 a {
     grid-area: calculate;
     display: flex;
     flex-direction: column;
-    /* border: 1px solid red; */
     padding: 10px 10px 25px;
 }
 #calculate div {
-    /* border: 1px solid black; */
     display: flex;
     justify-content: end;
     align-items: center;
@@ -150,6 +147,7 @@ div.standard-2 a {
     color: gray;
     font-weight: 100;
     padding-right: 10px;
+    height: 28px;
 }
 #calculate-output {
     height: 100%;

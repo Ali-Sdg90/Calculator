@@ -102,7 +102,6 @@ const calculateOutput = document.getElementById("calculate-output");
 const tempHistory = document.getElementById("temp-history");
 keys.forEach(function (key) {
     key.addEventListener("click", function () {
-        // tempHistory.textContent += key.textContent;
         if (calculateOutput.textContent == "0")
             calculateOutput.textContent = "";
         switch (key.textContent) {
@@ -129,15 +128,19 @@ keys.forEach(function (key) {
 
             case "%":
                 calculateOutput.textContent = calculateOutput.textContent / 100;
+                tempHistory.textContent += calculateOutput.textContent;
                 break;
 
             case "2√x":
+                tempHistory.textContent += `√ ( ${calculateOutput.textContent} ) `;
                 calculateOutput.textContent = Math.sqrt(
                     calculateOutput.textContent
                 );
                 break;
 
             case "X^2":
+                tempHistory.textContent += `sqr ( ${calculateOutput.textContent} `;
+                
                 calculateOutput.textContent = Math.pow(
                     calculateOutput.textContent,
                     2
@@ -145,6 +148,7 @@ keys.forEach(function (key) {
                 break;
 
             case "X^3":
+                tempHistory.textContent += `cube ( ${calculateOutput.textContent} `;
                 calculateOutput.textContent = Math.pow(
                     calculateOutput.textContent,
                     3
