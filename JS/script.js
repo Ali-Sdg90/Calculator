@@ -1,7 +1,8 @@
 const themeBtn = document.getElementById("change-theme");
 const localTheme = localStorage.getItem("localTheme");
-let themeCounter = 1;
 const root = document.querySelector(":root");
+let themeCounter = 1;
+
 if (localTheme) themeCounter = localTheme;
 changeTheme();
 function changeTheme() {
@@ -20,7 +21,7 @@ function changeTheme() {
                 --light-key-color: rgb(80, 79, 86);
                 --dark-key-color: rgb(65, 64, 71);
                 --btn-hover: rgba(84, 84, 84, 0.73);
-                --btn-active: rgb(47, 46, 51);
+                --active: rgb(47, 46, 51);
                 --key-hover: rgb(52, 51, 56);
                 `;
             break;
@@ -38,7 +39,7 @@ function changeTheme() {
                 --light-key-color: rgb(241, 241, 241);
                 --dark-key-color: rgb(228, 228, 228);
                 --btn-hover: rgb(188, 188, 188);
-                --btn-active: rgb(191, 191, 191);
+                --active: rgb(191, 191, 191);
                 --key-hover: #c8c8c8;
                 `;
             break;
@@ -56,7 +57,7 @@ function changeTheme() {
                 --light-key-color: #98D42A;
                 --dark-key-color: #72D429;
                 --btn-hover: #36A533;
-                --btn-active: rgb(54, 165, 51);
+                --active: rgb(54, 165, 51);
                 --key-hover: #36A533;
                 `;
             break;
@@ -74,7 +75,7 @@ function changeTheme() {
                 --light-key-color: #73D6F3;
                 --dark-key-color: #1AC8F2;
                 --btn-hover: #006CBF;
-                --btn-active: #006CBF;
+                --active: #006CBF;
                 --key-hover: #006DC1;
                 `;
             break;
@@ -95,3 +96,30 @@ themeBtn.addEventListener("click", function () {
     changeTheme();
 });
 // localStorage.clear();
+
+const keys = Array.from(document.getElementsByClassName("key"));
+const calculateOutput = document.getElementById("calculate");
+keys.forEach(function (key) {
+    key.addEventListener("click", function () {
+        switch (key.textContent) {
+            case "C":
+                calculateOutput.textContent = calculateOutput.textContent.slice(
+                    0,
+                    -1
+                );
+                break;
+            case "CE":
+                calculateOutput.textContent = "";
+                break;
+            case "=":
+                for (i of calculateOutput.textContent) {
+                    calculateOutput.textContent =
+                        calculateOutput.textContent.replace(/×/g, "*");
+                }
+                calculateOutput.textContent = eval(calculateOutput.textContent);
+                break;
+            default:
+                calculateOutput.textContent += key.textContent;
+        }
+    });
+});
