@@ -101,6 +101,7 @@ const keys = Array.from(document.getElementsByClassName("key"));
 const calculateOutput = document.getElementById("calculate-output");
 const tempHistory = document.getElementById("temp-history");
 let parCounter = 0;
+let calcAnswer = "";
 addNum = true;
 deleteOutput = false;
 keys.forEach(function (key) {
@@ -132,8 +133,9 @@ keys.forEach(function (key) {
                 break;
 
             case "%":
+                tempHistory.textContent +=
+                    calculateOutput.textContent + " / 100 ";
                 calculateOutput.textContent = calculateOutput.textContent / 100;
-                tempHistory.textContent += calculateOutput.textContent;
                 break;
 
             case "2√x":
@@ -172,15 +174,15 @@ keys.forEach(function (key) {
 
             case "=":
                 parCounter = 0;
-                for (i of calculateOutput.textContent) {
-                    calculateOutput.textContent =
-                        calculateOutput.textContent.replace(/×/g, "*");
-                    calculateOutput.textContent =
-                        calculateOutput.textContent.replace(/÷/g, "/");
+                resultMaker();
+                let calculateString = tempHistory.textContent;
+                for (i of calculateString) {
+                    calculateString = calculateString.replace(/×/g, "*");
+                    calculateString = calculateString.replace(/÷/g, "/");
                 }
-                calculateOutput.textContent = eval(tempHistory.textContent);
-                resetCalc = true;
-                tempHistory.textContent += calculateOutput.textContent + " = ";
+                console.log(calculateString);
+                // calculateOutput.textContent = eval(calculateString);
+                tempHistory.textContent += " = ";
                 break;
 
             case "+":
@@ -206,23 +208,40 @@ keys.forEach(function (key) {
         if (!calculateOutput.textContent) calculateOutput.textContent = "0";
     });
 });
-let beforPar;
+function resultMaker() {
+    let calculateString = tempHistory.textContent;
+    for (i of calculateString) {
+        calculateString = calculateString.replace(/×/g, "*");
+        calculateString = calculateString.replace(/÷/g, "/");
+        calculateString = calculateString.replace(/cube /g, "Math.pow(,3)");
+        calculateString = calculateString.replace(/sqr /g, "Math.pow");
+        calculateString = calculateString.replace(/√ /g, "Math.pow");
+    }
+    console.log(calculateString);
+    // calculateOutput.textContent = eval(calculateString);
+}
 let rootNum;
 function closePar(operation) {
     parCounter++;
-    console.log(parCounter);
+    // console.log(parCounter);
     if (parCounter == 1) {
-        beforPar = tempHistory.textContent;
         rootNum = calculateOutput.textContent;
-    }
-    console.log(beforPar);
-    tempHistory.textContent = beforPar;
-    for (let i = 0; i < parCounter; i++) {
-        tempHistory.textContent += operation;
-    }
-    tempHistory.textContent += rootNum + " ";
-    for (let i = 0; i < parCounter; i++) {
-        tempHistory.textContent += ") ";
-    }
+        tempHistory.textContent += `${operation}${rootNum} ) `;
+    } else
+        tempHistory.textContent = tempHistory.textContent.replace(
+            rootNum,
+            `${operation}${rootNum} ) `
+        );
+    // console.log(beforPar);
+    // let OutputLength = calculateOutput.textContent.length();
+    // calculateOutput.textContent = calculateOutput.textContent.split(OutputLength,OutputLength);
+    // tempHistory.textContent = beforPar;
+    // for (let i = 0; i < parCounter; i++) {
+    //     tempHistory.textContent += operation;
+    // }
+    // tempHistory.textContent += rootNum + "";
+    // for (let i = 0; i < parCounter; i++) {
+    //     tempHistory.textContent += "";
+    // }
     addNum = false;
 }
