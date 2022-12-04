@@ -124,12 +124,14 @@ keys.forEach(function (key) {
             case "CE":
                 calculateOutput.textContent = "";
                 parCounter = 0;
+                calcAnswer = "";
                 break;
 
             case "C":
                 calculateOutput.textContent = "";
                 tempHistory.textContent = "";
                 parCounter = 0;
+                calcAnswer = "";
                 break;
 
             case "%":
@@ -174,15 +176,16 @@ keys.forEach(function (key) {
 
             case "=":
                 parCounter = 0;
-                resultMaker();
-                let calculateString = tempHistory.textContent;
-                for (i of calculateString) {
-                    calculateString = calculateString.replace(/×/g, "*");
-                    calculateString = calculateString.replace(/÷/g, "/");
-                }
-                console.log(calculateString);
-                // calculateOutput.textContent = eval(calculateString);
+                tempHistory.textContent += calculateOutput.textContent;
+                calcAnswer += calculateOutput.textContent;
                 tempHistory.textContent += " = ";
+                for (i of calcAnswer) {
+                    calcAnswer = calcAnswer.replace(/×/g, "*");
+                    calcAnswer = calcAnswer.replace(/÷/g, "/");
+                }
+                console.log(calcAnswer);
+                calculateOutput.textContent = eval(calcAnswer);
+                calcAnswer = "";
                 break;
 
             case "+":
@@ -199,6 +202,7 @@ keys.forEach(function (key) {
                 else tempHistory.textContent += " " + key.textContent + " ";
                 addNum = true;
                 deleteOutput = true;
+                calcAnswer += calculateOutput.textContent + key.textContent;
                 break;
             default:
                 if (deleteOutput) calculateOutput.textContent = "";
@@ -213,17 +217,12 @@ function resultMaker() {
     for (i of calculateString) {
         calculateString = calculateString.replace(/×/g, "*");
         calculateString = calculateString.replace(/÷/g, "/");
-        calculateString = calculateString.replace(/cube /g, "Math.pow(,3)");
-        calculateString = calculateString.replace(/sqr /g, "Math.pow");
-        calculateString = calculateString.replace(/√ /g, "Math.pow");
     }
-    console.log(calculateString);
     // calculateOutput.textContent = eval(calculateString);
 }
 let rootNum;
 function closePar(operation) {
     parCounter++;
-    // console.log(parCounter);
     if (parCounter == 1) {
         rootNum = calculateOutput.textContent;
         tempHistory.textContent += `${operation}${rootNum} ) `;
