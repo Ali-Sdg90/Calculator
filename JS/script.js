@@ -101,6 +101,8 @@ const keys = Array.from(document.getElementsByClassName("key"));
 const calculateOutput = document.getElementById("calculate-output");
 const tempHistory = document.getElementById("temp-history");
 let parCounter = 0;
+addNum = true;
+deleteOutput = false;
 keys.forEach(function (key) {
     key.addEventListener("click", function () {
         if (calculateOutput.textContent == "0")
@@ -120,11 +122,13 @@ keys.forEach(function (key) {
 
             case "CE":
                 calculateOutput.textContent = "";
+                parCounter = 0;
                 break;
 
             case "C":
                 calculateOutput.textContent = "";
                 tempHistory.textContent = "";
+                parCounter = 0;
                 break;
 
             case "%":
@@ -174,13 +178,29 @@ keys.forEach(function (key) {
                     calculateOutput.textContent =
                         calculateOutput.textContent.replace(/÷/g, "/");
                 }
-                calculateOutput.textContent = eval(calculateOutput.textContent);
+                calculateOutput.textContent = eval(tempHistory.textContent);
                 resetCalc = true;
+                tempHistory.textContent += calculateOutput.textContent + " = ";
                 break;
 
-            case ("+", "-", "×", "÷"):
-                closePar();
+            case "+":
+            case "-":
+            case "×":
+            case "÷":
+                parCounter = 0;
+                if (addNum)
+                    tempHistory.textContent +=
+                        calculateOutput.textContent +
+                        " " +
+                        key.textContent +
+                        " ";
+                else tempHistory.textContent += " " + key.textContent + " ";
+                addNum = true;
+                deleteOutput = true;
+                break;
             default:
+                if (deleteOutput) calculateOutput.textContent = "";
+                deleteOutput = false;
                 calculateOutput.textContent += key.textContent;
         }
         if (!calculateOutput.textContent) calculateOutput.textContent = "0";
@@ -204,4 +224,5 @@ function closePar(operation) {
     for (let i = 0; i < parCounter; i++) {
         tempHistory.textContent += ") ";
     }
+    addNum = false;
 }
