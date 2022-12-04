@@ -98,28 +98,84 @@ themeBtn.addEventListener("click", function () {
 // localStorage.clear();
 
 const keys = Array.from(document.getElementsByClassName("key"));
-const calculateOutput = document.getElementById("calculate");
+const calculateOutput = document.getElementById("calculate-output");
+const tempHistory = document.getElementById("temp-history");
 keys.forEach(function (key) {
     key.addEventListener("click", function () {
+        // tempHistory.textContent += key.textContent;
+        if (calculateOutput.textContent == "0")
+            calculateOutput.textContent = "";
         switch (key.textContent) {
-            case "C":
-                calculateOutput.textContent = calculateOutput.textContent.slice(
-                    0,
-                    -1
-                );
+            case "DEL":
+                if (
+                    calculateOutput.textContent < 0 &&
+                    calculateOutput.textContent > -10
+                )
+                    calculateOutput.textContent =
+                        calculateOutput.textContent.slice(1, -1);
+                else
+                    calculateOutput.textContent =
+                        calculateOutput.textContent.slice(0, -1);
                 break;
+
             case "CE":
                 calculateOutput.textContent = "";
                 break;
+
+            case "C":
+                calculateOutput.textContent = "";
+                tempHistory.textContent = "";
+                break;
+
+            case "%":
+                calculateOutput.textContent = calculateOutput.textContent / 100;
+                break;
+
+            case "2√x":
+                calculateOutput.textContent = Math.sqrt(
+                    calculateOutput.textContent
+                );
+                break;
+
+            case "X^2":
+                calculateOutput.textContent = Math.pow(
+                    calculateOutput.textContent,
+                    2
+                );
+                break;
+
+            case "X^3":
+                calculateOutput.textContent = Math.pow(
+                    calculateOutput.textContent,
+                    3
+                );
+                break;
+
+            case "1/X":
+                calculateOutput.textContent = Math.pow(
+                    calculateOutput.textContent,
+                    -1
+                );
+                break;
+
+            case "+/-":
+                calculateOutput.textContent = calculateOutput.textContent * -1;
+                break;
+
             case "=":
                 for (i of calculateOutput.textContent) {
                     calculateOutput.textContent =
                         calculateOutput.textContent.replace(/×/g, "*");
+                    calculateOutput.textContent =
+                        calculateOutput.textContent.replace(/÷/g, "/");
                 }
                 calculateOutput.textContent = eval(calculateOutput.textContent);
+                resetCalc = true;
                 break;
+
             default:
                 calculateOutput.textContent += key.textContent;
         }
+        if (!calculateOutput.textContent) calculateOutput.textContent = "0";
     });
 });

@@ -12,6 +12,7 @@
     cursor: default;
 }
 :root {
+    /*
     --font-family: sans-serif;
     --font-style: normal;
     --transition: color 0.15s, background 0.15s;
@@ -25,6 +26,20 @@
     --btn-hover: rgb(188, 188, 188);
     --active: rgb(191, 191, 191);
     --key-hover: #c8c8c8;
+    */
+    --font-family: sans-serif;
+    --font-style: normal;
+    --transition: 0.5s;
+    --radius-keys: 2px;
+    --radius-btns: 4px;
+    --main-color: white;
+    --background: rgb(36, 36, 40);
+    --line-color: rgb(65, 115, 208);
+    --light-key-color: rgb(80, 79, 86);
+    --dark-key-color: rgb(65, 64, 71);
+    --btn-hover: rgba(84, 84, 84, 0.73);
+    --active: rgb(47, 46, 51);
+    --key-hover: rgb(52, 51, 56);
 }
 ::selection {
     background: transparent;
@@ -120,12 +135,26 @@ div.standard-2 a {
 }
 #calculate {
     grid-area: calculate;
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid red; */
+    padding: 10px 10px 25px;
+}
+#calculate div {
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+#temp-history {
+    color: gray;
+    font-weight: 100;
+    padding-right: 10px;
+}
+#calculate-output {
+    height: 100%;
     font-size: 3rem;
     font-weight: 600;
-    padding: 20px 10px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
 }
 .mode {
     grid-area: mode;
