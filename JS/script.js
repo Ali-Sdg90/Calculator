@@ -117,8 +117,6 @@ keys.forEach(function (key) {
                 key.textContent != "2√x"
             ) {
                 tempHistory.textContent = newHistory;
-                console.log("newHistory = ", newHistory);
-                // console.log("tempHistory = ", tempHistory.textContent);
                 calcAnswer = newHistory;
             } else {
                 tempHistory.textContent = "";
@@ -151,6 +149,7 @@ keys.forEach(function (key) {
                 calculateOutput.textContent = "";
                 parCounter = 0;
                 calcAnswer = "";
+                addNum =true;
                 break;
 
             case "C":
@@ -158,6 +157,7 @@ keys.forEach(function (key) {
                 tempHistory.textContent = "";
                 parCounter = 0;
                 calcAnswer = "";
+                addNum =true;
                 break;
 
             case "%":
@@ -223,35 +223,29 @@ keys.forEach(function (key) {
                     tempHistory.textContent += calculateOutput.textContent;
                 tempHistory.textContent += " = ";
                 calcAnswer = showAns();
+                if (calcAnswer != tempHistory.textContent) addNum = false;
                 calculateOutput.textContent = calcAnswer;
                 newHistory = calcAnswer;
                 calcAnswer = "";
                 deleteOutput = true;
-                addNum = false;
                 break;
 
             case "+":
             case "-":
             case "×":
             case "÷":
-                console.log("B-Operation: ", tempHistory.textContent);
                 parCounter = 0;
                 if (operationAdd) {
-                    // console.log(tempHistory.textContent);
                     tempHistory.textContent = tempHistory.textContent.replace(
                         tempHistory.textContent.charAt(
                             tempHistory.textContent.length - 2
                         ),
                         key.textContent
                     );
-                    console.log("fix prob -> ", tempHistory.textContent);
                 } else {
                     operationAdd = true;
                     showAns();
-                    // console.log("-->",key.textContent)
                     if (addNum) {
-                        console.log("M-Operation: ", tempHistory.textContent);
-                        console.log("M-Output: ", calculateOutput.textContent);
                         tempHistory.textContent +=
                             calculateOutput.textContent +
                             " " +
@@ -263,7 +257,6 @@ keys.forEach(function (key) {
                 }
                 addNum = true;
                 deleteOutput = true;
-                console.log("A-Operation: ", tempHistory.textContent);
                 break;
             case ".":
                 if (deleteOutput) calculateOutput.textContent = "0";
@@ -290,10 +283,8 @@ keys.forEach(function (key) {
                     tempCharChecker == "-" ||
                     tempCharChecker == "×" ||
                     tempCharChecker == "÷"
-                ) {
+                )
                     calcAnswer += tempCharChecker;
-                    console.log("tempCharChecker", calcAnswer);
-                }
             default:
                 calculateOutput.textContent += key.textContent;
         }
@@ -302,11 +293,15 @@ keys.forEach(function (key) {
 });
 function showAns() {
     calcAnswer += calculateOutput.textContent;
-    for (i of calcAnswer) {
-        calcAnswer = calcAnswer.replace(/×/g, "*");
-        calcAnswer = calcAnswer.replace(/÷/g, "/");
+    calcAnswer = calcAnswer.replace(/×/g, "*");
+    calcAnswer = calcAnswer.replace(/÷/g, "/");
+    for (let i = 1; i <= calcAnswer.length; i++) {
+        calcAnswer = calcAnswer.replace("--", "-");
+        calcAnswer = calcAnswer.replace("++", "+");
+        calcAnswer = calcAnswer.replace("**", "*");
+        calcAnswer = calcAnswer.replace("//", "/");
     }
-    console.log("R --> ", calcAnswer);
+    console.log("+R --> ", calcAnswer);
     try {
         let tempCalc = eval(calcAnswer);
         calculateOutput.textContent = tempCalc;
