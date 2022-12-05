@@ -109,12 +109,28 @@ calculateOutput.textContent = 0;
 keys.forEach(function (key) {
     key.addEventListener("click", function () {
         if (newHistory) {
-            tempHistory.textContent = newHistory;
-            console.log(newHistory);
-            calcAnswer = newHistory;
-            newHistory = "";
+            if (
+                key.textContent != "CE" &&
+                key.textContent != "X^3" &&
+                key.textContent != "X^2" &&
+                key.textContent != "2√x"
+            ) {
+                tempHistory.textContent = newHistory;
+                console.log(newHistory);
+                calcAnswer = newHistory;
+            } else {
+                tempHistory.textContent = "";
+            }
         }
-        if (deleteOutput) calculateOutput.textContent = "";
+        newHistory = "";
+        if (deleteOutput) {
+            if (
+                key.textContent != "X^3" &&
+                key.textContent != "X^2" &&
+                key.textContent != "2√x"
+            )
+                calculateOutput.textContent = "";
+        }
         deleteOutput = false;
         switch (key.textContent) {
             case "DEL":
@@ -143,9 +159,17 @@ keys.forEach(function (key) {
                 break;
 
             case "%":
-                tempHistory.textContent +=
-                    calculateOutput.textContent + " / 100 ";
+                if (tempHistory.textContent.indexOf("/ 100") == -1) {
+                    tempHistory.textContent +=
+                        calculateOutput.textContent + " / 100 ";
+                } else {
+                    tempHistory.textContent = tempHistory.textContent.replace(
+                        "/ 100",
+                        "/ 10000"
+                    );
+                }
                 calculateOutput.textContent = calculateOutput.textContent / 100;
+                addNum = false;
                 break;
 
             case "2√x":
@@ -184,7 +208,17 @@ keys.forEach(function (key) {
 
             case "=":
                 parCounter = 0;
-                tempHistory.textContent += calculateOutput.textContent;
+                tempChecker = tempHistory.textContent.charAt(
+                    tempHistory.textContent.length - 2
+                );
+                if (
+                    tempChecker == "+" ||
+                    tempChecker == "-" ||
+                    tempChecker == "×" ||
+                    tempChecker == "÷"
+                )
+                    tempHistory.textContent +=
+                        calculateOutput.textContent;
                 tempHistory.textContent += " = ";
                 calcAnswer = showAns();
                 calculateOutput.textContent = calcAnswer;
@@ -210,6 +244,10 @@ keys.forEach(function (key) {
                 showAns();
                 calcAnswer += key.textContent;
                 break;
+            case ".":
+                if (deleteOutput) calculateOutput.textContent = "0";
+                calculateOutput.textContent += key.textContent;
+                break;
             case "0":
             case "1":
             case "2":
@@ -222,7 +260,6 @@ keys.forEach(function (key) {
             case "9":
                 if (calculateOutput.textContent == "0")
                     calculateOutput.textContent = "";
-            // break;
             default:
                 calculateOutput.textContent += key.textContent;
         }
