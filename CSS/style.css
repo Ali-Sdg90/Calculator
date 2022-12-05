@@ -1,7 +1,7 @@
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     font-size: 16px;
     text-decoration: none;
     color: var(--main-color);
@@ -43,6 +43,27 @@
     --btn-hover: rgba(84, 84, 84, 0.73);
     --active: rgb(47, 46, 51);
     --key-hover: rgb(52, 51, 56);
+}
+::selection {
+    background: transparent;
+}
+::-webkit-scrollbar {
+    width: 10px;
+    background: transparent;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--dark-key-color);
+    height: 100px;
+    border-radius: 10px;
+    outline: 2px solid var(--background);
+    outline-offset: -2px;
+    transition: 0.5s;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--btn-hover);
 }
 ::selection {
     background: transparent;
@@ -152,7 +173,6 @@ div.standard-2 a {
     font-weight: 100;
     padding-right: 10px;
     height: 28px;
-    /* border: 1px solid red; */
     white-space: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
@@ -182,32 +202,81 @@ div.standard-2 a {
 .mode div:nth-child(2) {
     color: gray;
 }
-.history {
-    display: none;
+.calculator .history {
     grid-area: history;
     font-weight: 600;
     font-size: 0.8rem;
     letter-spacing: -0.1px;
+    display: none;
+    grid-template-rows: 34px auto 47px;
+    gap: 10px;
 }
-.history span {
+#history-nav {
     display: grid;
     grid-template-columns: 90px 90px auto;
     grid-template-rows: 25px 8px;
 }
-.history span div {
+#history-nav div {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.history span hr {
+#history-nav hr {
     width: 53px;
     border: 1px solid var(--line-color);
     border-radius: 10px;
     background: var(--line-color);
 }
-.history p {
+#empty-history {
     padding: 17px 0 0 10px;
     font-size: 0.9rem;
+}
+#calc-history {
+    padding-top: 7px;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+div.history-box {
+    /* margin-top: 10px !important; */
+    background: var(--background);
+    margin: 5px;
+    border-radius: var(--radius-btns);
+    z-index: 1;
+}
+.history-box div {
+    background: transparent;
+    display: flex;
+    justify-content: right;
+    padding-right: 12px;
+    font-weight: 100;
+}
+.history-box-tempHistory {
+    color: gray;
+    height: 30px;
+    padding: 10px;
+}
+.history-box-calculateOutput {
+    font-size: 1.4rem;
+    height: 35px;
+    padding-top: 3px;
+}
+#history-delete-div {
+    background: var(--background);
+    z-index: 2;
+    display: flex;
+    justify-content: end;
+}
+#history-delete-btn {
+    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px 8px;
+    margin: 5px;
+    font-weight: 100;
+    border-radius: var(--radius-btns);
+    background: var(--background);
 }
 .numbers {
     grid-area: numbers;
@@ -244,7 +313,9 @@ div.lighter-key {
 .windows-nav div:hover {
     cursor: default;
 }
-.btn-hover:hover {
+.btn-hover:hover,
+div.history-box:hover,
+#history-delete-btn:hover {
     background: var(--btn-hover);
 }
 .numbers div:active {
@@ -255,10 +326,12 @@ div.lighter-key {
     font-size: 1.8rem;
 }
 .btn-hover:active,
+div.history-box:active,
+#history-delete-btn:active,
 .numbers div:last-child:active,
 .windows-nav div:last-child:active,
-div.history span div:nth-child(1):hover,
-div.history span div:nth-child(2):hover {
+#history-nav div:nth-child(1):hover,
+#history-nav div:nth-child(2):hover {
     opacity: 0.7;
 }
 .numbers div:nth-child(1) {
@@ -352,6 +425,9 @@ div.history span div:nth-child(2):hover {
     }
     .history {
         display: block;
+    }
+    .calculator .history{
+        display: grid;
     }
 }
 @media screen and (min-width: 740px) {

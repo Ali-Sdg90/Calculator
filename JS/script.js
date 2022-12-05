@@ -149,7 +149,7 @@ keys.forEach(function (key) {
                 calculateOutput.textContent = "";
                 parCounter = 0;
                 calcAnswer = "";
-                addNum =true;
+                addNum = true;
                 break;
 
             case "C":
@@ -157,7 +157,7 @@ keys.forEach(function (key) {
                 tempHistory.textContent = "";
                 parCounter = 0;
                 calcAnswer = "";
-                addNum =true;
+                addNum = true;
                 break;
 
             case "%":
@@ -235,6 +235,16 @@ keys.forEach(function (key) {
             case "×":
             case "÷":
                 parCounter = 0;
+                let tempOperationCounter = 0;
+                trimAns();
+                if (calcAnswer.indexOf("+") != -1) tempOperationCounter++;
+                if (calcAnswer.indexOf("-") != -1) tempOperationCounter++;
+                if (calcAnswer.indexOf("÷") != -1) tempOperationCounter++;
+                if (calcAnswer.indexOf("×") != -1) tempOperationCounter++;
+                if (tempOperationCounter > 0) {
+                    tempHistory.textContent = "";
+                }
+                console.log("S->", tempHistory.textContent);
                 if (operationAdd) {
                     tempHistory.textContent = tempHistory.textContent.replace(
                         tempHistory.textContent.charAt(
@@ -244,7 +254,9 @@ keys.forEach(function (key) {
                     );
                 } else {
                     operationAdd = true;
+                    console.log("E1->", tempHistory.textContent);
                     showAns();
+                    console.log("E2->", tempHistory.textContent);
                     if (addNum) {
                         tempHistory.textContent +=
                             calculateOutput.textContent +
@@ -254,9 +266,11 @@ keys.forEach(function (key) {
                     } else {
                         tempHistory.textContent += " " + key.textContent + " ";
                     }
+                    console.log("E3->", tempHistory.textContent);
                 }
                 addNum = true;
                 deleteOutput = true;
+
                 break;
             case ".":
                 if (deleteOutput) calculateOutput.textContent = "0";
@@ -291,16 +305,19 @@ keys.forEach(function (key) {
         if (!calculateOutput.textContent) calculateOutput.textContent = "0";
     });
 });
-function showAns() {
-    calcAnswer += calculateOutput.textContent;
-    calcAnswer = calcAnswer.replace(/×/g, "*");
-    calcAnswer = calcAnswer.replace(/÷/g, "/");
+function trimAns() {
     for (let i = 1; i <= calcAnswer.length; i++) {
         calcAnswer = calcAnswer.replace("--", "-");
         calcAnswer = calcAnswer.replace("++", "+");
-        calcAnswer = calcAnswer.replace("**", "*");
-        calcAnswer = calcAnswer.replace("//", "/");
+        calcAnswer = calcAnswer.replace("××", "×");
+        calcAnswer = calcAnswer.replace("÷÷", "÷");
     }
+}
+function showAns() {
+    trimAns();
+    calcAnswer += calculateOutput.textContent;
+    calcAnswer = calcAnswer.replace(/×/g, "*");
+    calcAnswer = calcAnswer.replace(/÷/g, "/");
     console.log("+R --> ", calcAnswer);
     try {
         let tempCalc = eval(calcAnswer);
