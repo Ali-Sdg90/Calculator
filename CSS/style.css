@@ -12,7 +12,8 @@
     cursor: default;
 }
 :root {
-    /*
+    /* white ⇩ */
+    /*     
     --font-family: sans-serif;
     --font-style: normal;
     --transition: color 0.15s, background 0.15s;
@@ -27,6 +28,8 @@
     --active: rgb(191, 191, 191);
     --key-hover: #c8c8c8;
     */
+    /* black ⇩ */
+
     --font-family: sans-serif;
     --font-style: normal;
     --transition: 0.5s;

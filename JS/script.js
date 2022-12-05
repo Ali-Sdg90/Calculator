@@ -104,6 +104,7 @@ let parCounter = 0;
 let calcAnswer = "";
 let addNum = true;
 let deleteOutput = false;
+let operationAdd = false;
 let newHistory = "";
 calculateOutput.textContent = 0;
 keys.forEach(function (key) {
@@ -116,7 +117,8 @@ keys.forEach(function (key) {
                 key.textContent != "2√x"
             ) {
                 tempHistory.textContent = newHistory;
-                console.log(newHistory);
+                console.log("newHistory = ", newHistory);
+                // console.log("tempHistory = ", tempHistory.textContent);
                 calcAnswer = newHistory;
             } else {
                 tempHistory.textContent = "";
@@ -196,6 +198,7 @@ keys.forEach(function (key) {
                 break;
 
             case "1/X":
+                closePar("1 / ( ");
                 calculateOutput.textContent = Math.pow(
                     calculateOutput.textContent,
                     -1
@@ -217,32 +220,50 @@ keys.forEach(function (key) {
                     tempChecker == "×" ||
                     tempChecker == "÷"
                 )
-                    tempHistory.textContent +=
-                        calculateOutput.textContent;
+                    tempHistory.textContent += calculateOutput.textContent;
                 tempHistory.textContent += " = ";
                 calcAnswer = showAns();
                 calculateOutput.textContent = calcAnswer;
                 newHistory = calcAnswer;
                 calcAnswer = "";
                 deleteOutput = true;
+                addNum = false;
                 break;
 
             case "+":
             case "-":
             case "×":
             case "÷":
+                console.log("B-Operation: ", tempHistory.textContent);
                 parCounter = 0;
-                if (addNum)
-                    tempHistory.textContent +=
-                        calculateOutput.textContent +
-                        " " +
-                        key.textContent +
-                        " ";
-                else tempHistory.textContent += " " + key.textContent + " ";
+                if (operationAdd) {
+                    // console.log(tempHistory.textContent);
+                    tempHistory.textContent = tempHistory.textContent.replace(
+                        tempHistory.textContent.charAt(
+                            tempHistory.textContent.length - 2
+                        ),
+                        key.textContent
+                    );
+                    console.log("fix prob -> ", tempHistory.textContent);
+                } else {
+                    operationAdd = true;
+                    showAns();
+                    // console.log("-->",key.textContent)
+                    if (addNum) {
+                        console.log("M-Operation: ", tempHistory.textContent);
+                        console.log("M-Output: ", calculateOutput.textContent);
+                        tempHistory.textContent +=
+                            calculateOutput.textContent +
+                            " " +
+                            key.textContent +
+                            " ";
+                    } else {
+                        tempHistory.textContent += " " + key.textContent + " ";
+                    }
+                }
                 addNum = true;
                 deleteOutput = true;
-                showAns();
-                calcAnswer += key.textContent;
+                console.log("A-Operation: ", tempHistory.textContent);
                 break;
             case ".":
                 if (deleteOutput) calculateOutput.textContent = "0";
@@ -260,6 +281,19 @@ keys.forEach(function (key) {
             case "9":
                 if (calculateOutput.textContent == "0")
                     calculateOutput.textContent = "";
+                operationAdd = false;
+                let tempCharChecker = tempHistory.textContent.charAt(
+                    tempHistory.textContent.length - 2
+                );
+                if (
+                    tempCharChecker == "+" ||
+                    tempCharChecker == "-" ||
+                    tempCharChecker == "×" ||
+                    tempCharChecker == "÷"
+                ) {
+                    calcAnswer += tempCharChecker;
+                    console.log("tempCharChecker", calcAnswer);
+                }
             default:
                 calculateOutput.textContent += key.textContent;
         }
@@ -272,10 +306,15 @@ function showAns() {
         calcAnswer = calcAnswer.replace(/×/g, "*");
         calcAnswer = calcAnswer.replace(/÷/g, "/");
     }
-    console.log(calcAnswer);
-    let tempCalc = eval(calcAnswer);
-    calculateOutput.textContent = tempCalc;
-    return tempCalc;
+    console.log("R --> ", calcAnswer);
+    try {
+        let tempCalc = eval(calcAnswer);
+        calculateOutput.textContent = tempCalc;
+        return tempCalc;
+    } catch {
+        calculateOutput.textContent = "Oops error!";
+        tempHistory.textContent = "";
+    }
 }
 let rootNum;
 function closePar(operation) {
