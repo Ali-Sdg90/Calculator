@@ -64,6 +64,8 @@
 }
 ::-webkit-scrollbar-thumb:hover {
     background: var(--btn-hover);
+    outline: 1px solid var(--background);
+    outline-offset: -1px;
 }
 ::selection {
     background: transparent;
