@@ -230,7 +230,7 @@ div.standard-2 a {
     background: var(--line-color);
 }
 #empty-history {
-    padding: 17px 0 0 10px;
+    padding-left: 12px;
     font-size: 0.9rem;
 }
 #calc-history {
@@ -240,7 +240,6 @@ div.standard-2 a {
     overflow-y: scroll;
 }
 div.history-box {
-    /* margin-top: 10px !important; */
     background: var(--background);
     margin: 5px;
     border-radius: var(--radius-btns);
@@ -257,6 +256,9 @@ div.history-box {
     color: gray;
     height: 30px;
     padding: 10px;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 .history-box-calculateOutput {
     font-size: 1.4rem;
@@ -428,7 +430,7 @@ div.history-box:active,
     .history {
         display: block;
     }
-    .calculator .history{
+    .calculator .history {
         display: grid;
     }
 }

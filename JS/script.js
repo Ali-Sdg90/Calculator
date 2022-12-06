@@ -211,18 +211,10 @@ keys.forEach(function (key) {
 
             case "=":
                 parCounter = 0;
-                tempChecker = tempHistory.textContent.charAt(
-                    tempHistory.textContent.length - 2
-                );
-                if (
-                    tempChecker == "+" ||
-                    tempChecker == "-" ||
-                    tempChecker == "×" ||
-                    tempChecker == "÷"
-                )
-                    tempHistory.textContent += calculateOutput.textContent;
+                addToHistory();
+                tempHistory.textContent = equalChecker();
                 tempHistory.textContent += " = ";
-                calcAnswer = showAns();
+                calcAnswer = showAns(true);
                 if (calcAnswer != tempHistory.textContent) addNum = false;
                 calculateOutput.textContent = calcAnswer;
                 newHistory = calcAnswer;
@@ -235,6 +227,8 @@ keys.forEach(function (key) {
             case "×":
             case "÷":
                 parCounter = 0;
+                calcAnswer = calcAnswer.toString();
+                console.log("++", calcAnswer, typeof calcAnswer);
                 let tempOperationCounter = 0;
                 trimAns();
                 if (calcAnswer.indexOf("+") != -1) tempOperationCounter++;
@@ -242,9 +236,11 @@ keys.forEach(function (key) {
                 if (calcAnswer.indexOf("÷") != -1) tempOperationCounter++;
                 if (calcAnswer.indexOf("×") != -1) tempOperationCounter++;
                 if (tempOperationCounter > 0) {
+                    addToHistory();
+
                     tempHistory.textContent = "";
                 }
-                console.log("S->", tempHistory.textContent);
+                // console.log("S->", tempHistory.textContent);
                 if (operationAdd) {
                     tempHistory.textContent = tempHistory.textContent.replace(
                         tempHistory.textContent.charAt(
@@ -254,9 +250,9 @@ keys.forEach(function (key) {
                     );
                 } else {
                     operationAdd = true;
-                    console.log("E1->", tempHistory.textContent);
-                    showAns();
-                    console.log("E2->", tempHistory.textContent);
+                    // console.log("E1->", tempHistory.textContent);
+                    showAns(true);
+                    // console.log("E2->", tempHistory.textContent);
                     if (addNum) {
                         tempHistory.textContent +=
                             calculateOutput.textContent +
@@ -266,7 +262,7 @@ keys.forEach(function (key) {
                     } else {
                         tempHistory.textContent += " " + key.textContent + " ";
                     }
-                    console.log("E3->", tempHistory.textContent);
+                    // console.log("E3->", tempHistory.textContent);
                 }
                 addNum = true;
                 deleteOutput = true;
@@ -305,6 +301,16 @@ keys.forEach(function (key) {
         if (!calculateOutput.textContent) calculateOutput.textContent = "0";
     });
 });
+function equalChecker() {
+    let coppyTempHistory = tempHistory.textContent;
+    const coppyCalculateOutput = calculateOutput.textContent;
+    const checker = tempHistory.textContent.charAt(
+        tempHistory.textContent.length - 2
+    );
+    if (checker == "+" || checker == "-" || checker == "×" || checker == "÷")
+        coppyTempHistory += coppyCalculateOutput;
+    return coppyTempHistory;
+}
 function trimAns() {
     for (let i = 1; i <= calcAnswer.length; i++) {
         calcAnswer = calcAnswer.replace("--", "-");
@@ -313,9 +319,9 @@ function trimAns() {
         calcAnswer = calcAnswer.replace("÷÷", "÷");
     }
 }
-function showAns() {
+function showAns(add) {
     trimAns();
-    calcAnswer += calculateOutput.textContent;
+    if (add) calcAnswer += calculateOutput.textContent;
     calcAnswer = calcAnswer.replace(/×/g, "*");
     calcAnswer = calcAnswer.replace(/÷/g, "/");
     console.log("+R --> ", calcAnswer);
@@ -341,3 +347,43 @@ function closePar(operation) {
         );
     addNum = false;
 }
+
+const calcHistory = document.getElementById("calc-history");
+if (!calcHistory.textContent) {
+    calcHistory.innerHTML = `
+    <div id="empty-history">There's no history yet</div>
+    `;
+}
+function addToHistory() {
+    if (
+        (calcHistory.innerHTML = `<div id="empty-history">There's no history yet</div>`)
+    )
+        calcHistory.innerHTML = "";
+    let spaceAdder = equalChecker() + "  = ";
+    spaceAdder = spaceAdder.replace("+", "  +  ");
+    spaceAdder = spaceAdder.replace("-", "  -  ");
+    spaceAdder = spaceAdder.replace("×", "  ×  ");
+    spaceAdder = spaceAdder.replace("÷", "  ÷  ");
+    trimAns();
+    let tempAns = calcAnswer;
+    tempAns += calculateOutput.textContent;
+    tempAns = tempAns.replace(/×/g, "*");
+    tempAns = tempAns.replace(/÷/g, "/");
+    let tempCalc = eval(tempAns);
+    console.log("=>", spaceAdder, tempCalc);
+    if (tempCalc) {
+        calcHistory.innerHTML += `
+        <div class="history-box">
+            <div class="history-box-tempHistory">${spaceAdder}</div>
+            <div class="history-box-calculateOutput">${tempCalc}</div>
+        </div>
+    `;
+    } else tempHistory.textContent = "";
+}
+
+const historyDeleteBtn = document.getElementById("history-delete-btn");
+historyDeleteBtn.addEventListener("click", function () {
+    calcHistory.innerHTML = `
+    <div id="empty-history">There's no history yet</div>
+    `;
+});
