@@ -44,6 +44,12 @@
     --active: rgb(47, 46, 51);
     --key-hover: rgb(52, 51, 56);
 }
+/* ↈ */
+.calculator div,
+.calculator p {
+    /* debugging */
+    border: 0px solid black;
+}
 ::selection {
     background: transparent;
 }
@@ -69,12 +75,6 @@
 }
 ::selection {
     background: transparent;
-}
-/* ↈ */
-.calculator div,
-.calculator p {
-    /* debugging */
-    border: 0px solid black;
 }
 body {
     height: max(100vh, 410px);
@@ -162,7 +162,7 @@ div.standard-2 a {
     grid-area: calculate;
     display: flex;
     flex-direction: column;
-    padding: 10px 10px 25px;
+    padding: 10px;
     overflow: hidden;
 }
 #calculate div {
@@ -181,7 +181,7 @@ div.standard-2 a {
 }
 #calculate-output {
     height: 100%;
-    font-size: 3rem;
+    font-size: 4rem;
     font-weight: 600;
 }
 .mode {

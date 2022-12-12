@@ -228,7 +228,7 @@ keys.forEach(function (key) {
             case "÷":
                 parCounter = 0;
                 calcAnswer = calcAnswer.toString();
-                console.log("++", calcAnswer, typeof calcAnswer);
+                // console.log("++", calcAnswer, typeof calcAnswer);
                 let tempOperationCounter = 0;
                 trimAns();
                 if (calcAnswer.indexOf("+") != -1) tempOperationCounter++;
@@ -349,16 +349,26 @@ function closePar(operation) {
 }
 
 const calcHistory = document.getElementById("calc-history");
+console.log("calcHistory 1 => ", calcHistory.textContent);
 if (!calcHistory.textContent) {
     calcHistory.innerHTML = `
     <div id="empty-history">There's no history yet</div>
     `;
 }
+console.log("calcHistory 2 => ", calcHistory.textContent);
+
 function addToHistory() {
+    console.log("calcHistory 3 => ", calcHistory.textContent);
+    console.log(calcHistory.innerHTML);
+    console.log(calcHistory.innerHTML.trim());
+    if (calcHistory.innerHTML.trim() == `<div id="empty-history">There's no history yet</div>`)
+        console.log("YES!");
     if (
-        (calcHistory.innerHTML = `<div id="empty-history">There's no history yet</div>`)
+        (calcHistory.innerHTML.trim() == `<div id="empty-history">There's no history yet</div>`)
     )
         calcHistory.innerHTML = "";
+    console.log("calcHistory 4 => ", calcHistory.textContent);
+
     let spaceAdder = equalChecker() + "  = ";
     spaceAdder = spaceAdder.replace("+", "  +  ");
     spaceAdder = spaceAdder.replace("-", "  -  ");
@@ -379,6 +389,8 @@ function addToHistory() {
         </div>
     `;
     } else tempHistory.textContent = "";
+    console.log("calcHistory 5 => ", calcHistory.textContent);
+    console.log("---------------");
 }
 
 const historyDeleteBtn = document.getElementById("history-delete-btn");
