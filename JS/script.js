@@ -1,7 +1,7 @@
 const themeBtn = document.getElementById("change-theme");
 const localTheme = localStorage.getItem("localTheme");
 const root = document.querySelector(":root");
-let themeCounter = 1;
+let themeCounter = 0;
 
 if (localTheme) themeCounter = localTheme;
 changeTheme();
@@ -100,6 +100,8 @@ themeBtn.addEventListener("click", function () {
 const keys = Array.from(document.getElementsByClassName("key"));
 const calculateOutput = document.getElementById("calculate-output");
 const tempHistory = document.getElementById("temp-history");
+const localHistory = localStorage.getItem("localHistory");
+const calcHistory = document.getElementById("calc-history");
 let parCounter = 0;
 let calcAnswer = "";
 let newHistory = "";
@@ -107,7 +109,19 @@ let addNum = true;
 let deleteOutput = false;
 let operationAdd = false;
 let deleteAllowed = true;
+let objOfHistory = [];
 calculateOutput.textContent = 0;
+if (localHistory) {
+    objOfHistory = JSON.parse(localHistory);
+    for (let i = objOfHistory.length - 1; i >= 0; i--) {
+        calcHistory.innerHTML += `
+            <div class="history-box">
+                <div class="history-box-tempHistory">${objOfHistory[i].tempHistoryObj}</div>
+                <div class="history-box-calculateOutput">${objOfHistory[i].calculateOutputObj}</div>
+            </div>
+        `;
+    }
+}
 keys.forEach(function (key) {
     key.addEventListener("click", function () {
         if (newHistory) {
@@ -355,7 +369,6 @@ function closePar(operation) {
     deleteAllowed = false;
 }
 
-const calcHistory = document.getElementById("calc-history");
 if (!calcHistory.textContent) {
     calcHistory.innerHTML = `
     <div id="empty-history">There's no history yet</div>
@@ -381,18 +394,32 @@ function addToHistory() {
     let tempCalc = eval(tempAns);
     console.log("=>", spaceAdder, tempCalc);
     if (tempCalc) {
-        calcHistory.innerHTML += `
+        calcHistory.innerHTML =
+            `
         <div class="history-box">
             <div class="history-box-tempHistory">${spaceAdder}</div>
             <div class="history-box-calculateOutput">${tempCalc}</div>
         </div>
-    `;
+    ` + calcHistory.innerHTML;
+        let tempHistoryAdder = tempHistory.textContent;
+        if (addNum) tempHistoryAdder += calculateOutput.textContent;
+        console.log(typeof objOfHistory);
+        objOfHistory.push(new historyToObj(spaceAdder, tempCalc, tempAns));
+        localStorage.setItem("localHistory", JSON.stringify(objOfHistory));
+        console.log(objOfHistory);
     } else tempHistory.textContent = "";
 }
-
+// localStorage.clear()
 const historyDeleteBtn = document.getElementById("history-delete-btn");
 historyDeleteBtn.addEventListener("click", function () {
     calcHistory.innerHTML = `
     <div id="empty-history">There's no history yet</div>
     `;
+    objOfHistory = [];
+    localStorage.setItem("localHistory", []);
 });
+function historyToObj(tempHistory, calculateOutput, calcAnswer) {
+    this.tempHistoryObj = tempHistory;
+    this.calculateOutputObj = calculateOutput;
+    this.calcAnswerObj = calcAnswer;
+}
