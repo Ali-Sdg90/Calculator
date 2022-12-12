@@ -116,7 +116,7 @@ if (localHistory) {
     for (let i = objOfHistory.length - 1; i >= 0; i--) {
         calcHistory.innerHTML += `
             <div class="history-box">
-                <div class="history-box-tempHistory">${objOfHistory[i].tempHistoryObj}</div>
+                <div class="history-box-tempHistory">${objOfHistory[i].spaceAddedHistoryObj}</div>
                 <div class="history-box-calculateOutput">${objOfHistory[i].calculateOutputObj}</div>
             </div>
         `;
@@ -404,7 +404,9 @@ function addToHistory() {
         let tempHistoryAdder = tempHistory.textContent;
         if (addNum) tempHistoryAdder += calculateOutput.textContent;
         console.log(typeof objOfHistory);
-        objOfHistory.push(new historyToObj(spaceAdder, tempCalc, tempAns));
+        objOfHistory.push(
+            new historyToObj(spaceAdder, tempCalc, tempAns, equalChecker())
+        );
         localStorage.setItem("localHistory", JSON.stringify(objOfHistory));
         console.log(objOfHistory);
     } else tempHistory.textContent = "";
@@ -418,8 +420,38 @@ historyDeleteBtn.addEventListener("click", function () {
     objOfHistory = [];
     localStorage.setItem("localHistory", []);
 });
-function historyToObj(tempHistory, calculateOutput, calcAnswer) {
-    this.tempHistoryObj = tempHistory;
+
+function historyToObj(
+    spaceAddedHistory,
+    calculateOutput,
+    calcAnswer,
+    tempHistory
+) {
+    this.spaceAddedHistoryObj = spaceAddedHistory;
     this.calculateOutputObj = calculateOutput;
     this.calcAnswerObj = calcAnswer;
+    this.tempHistoryObj = tempHistory;
 }
+const historyBox = document.getElementsByClassName("history-box");
+
+document
+    .getElementById("calc-history")
+    .addEventListener("mouseenter", function () {
+        try {
+            for (let i = 0; i < historyBox.length; i++) {
+                historyBox[i].addEventListener("click", function () {
+                    let objNumber = historyBox.length - i - 1;
+                    console.log(
+                        objOfHistory[historyBox.length - i - 1]
+                            .calculateOutputObj
+                    );
+                    calcAnswer = objOfHistory[objNumber].calcAnswerObj;
+                    calculateOutput.textContent =
+                        objOfHistory[objNumber].calculateOutputObj;
+                    tempHistory.textContent =
+                        objOfHistory[objNumber].tempHistoryObj;
+                    //newHistory = "";
+                });
+            }
+        } catch {}
+    });
