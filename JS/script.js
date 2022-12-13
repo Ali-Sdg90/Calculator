@@ -405,7 +405,7 @@ function addToHistory() {
         if (addNum) tempHistoryAdder += calculateOutput.textContent;
         console.log(typeof objOfHistory);
         objOfHistory.push(
-            new historyToObj(spaceAdder, tempCalc, tempAns, equalChecker())
+            new historyToObj(spaceAdder, tempCalc, equalChecker())
         );
         localStorage.setItem("localHistory", JSON.stringify(objOfHistory));
         console.log(objOfHistory);
@@ -421,19 +421,13 @@ historyDeleteBtn.addEventListener("click", function () {
     localStorage.setItem("localHistory", []);
 });
 
-function historyToObj(
-    spaceAddedHistory,
-    calculateOutput,
-    calcAnswer,
-    tempHistory
-) {
+function historyToObj(spaceAddedHistory, calculateOutput, tempHistory) {
     this.spaceAddedHistoryObj = spaceAddedHistory;
     this.calculateOutputObj = calculateOutput;
-    this.calcAnswerObj = calcAnswer;
     this.tempHistoryObj = tempHistory;
 }
 const historyBox = document.getElementsByClassName("history-box");
-
+let historyBtnCounter = 0;
 document
     .getElementById("calc-history")
     .addEventListener("mouseenter", function () {
@@ -445,12 +439,14 @@ document
                         objOfHistory[historyBox.length - i - 1]
                             .calculateOutputObj
                     );
-                    calcAnswer = objOfHistory[objNumber].calcAnswerObj;
                     calculateOutput.textContent =
                         objOfHistory[objNumber].calculateOutputObj;
                     tempHistory.textContent =
                         objOfHistory[objNumber].tempHistoryObj;
-                    //newHistory = "";
+                    if (historyBtnCounter++ > 0)
+                        newHistory = objOfHistory[objNumber].calculateOutputObj;
+                    calcAnswer = "";
+                    addNum = false;
                 });
             }
         } catch {}
