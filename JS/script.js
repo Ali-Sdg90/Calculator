@@ -97,6 +97,10 @@ themeBtn.addEventListener("click", function () {
 });
 // localStorage.clear();
 
+//---------------------
+
+//Calculator calculation operations :
+
 const keys = Array.from(document.getElementsByClassName("key"));
 const calculateOutput = document.getElementById("calculate-output");
 const tempHistory = document.getElementById("temp-history");
@@ -124,6 +128,7 @@ if (localHistory) {
 }
 keys.forEach(function (key) {
     key.addEventListener("click", function () {
+        //newHistory after =  ⇩
         if (newHistory) {
             if (
                 key.textContent != "CE" &&
@@ -138,6 +143,7 @@ keys.forEach(function (key) {
             }
         }
         newHistory = "";
+        //deleteOutput after = & +-/* ⇩
         if (deleteOutput) {
             if (
                 key.textContent != "X^3" &&
@@ -177,21 +183,20 @@ keys.forEach(function (key) {
                 break;
 
             case "%":
-                tempHistoryAddEndPart(" / 100", " / 10000");
+                tempHistoryAddEndPart("/ 100 ");
                 calculateOutput.textContent = calculateOutput.textContent / 100;
-                addNum = false;
                 deleteAllowed = false;
                 break;
 
             case "2√x":
-                closePar("√ ( ");
+                parCalculate("√ ( ");
                 calculateOutput.textContent = Math.sqrt(
                     calculateOutput.textContent
                 );
                 break;
 
             case "X^2":
-                closePar("sqr ( ");
+                parCalculate("sqr ( ");
                 calculateOutput.textContent = Math.pow(
                     calculateOutput.textContent,
                     2
@@ -199,7 +204,7 @@ keys.forEach(function (key) {
                 break;
 
             case "X^3":
-                closePar("cube ( ");
+                parCalculate("cube ( ");
                 calculateOutput.textContent = Math.pow(
                     calculateOutput.textContent,
                     3
@@ -207,7 +212,7 @@ keys.forEach(function (key) {
                 break;
 
             case "1/X":
-                closePar("1 / ( ");
+                parCalculate("1 / ( ");
                 calculateOutput.textContent = Math.pow(
                     calculateOutput.textContent,
                     -1
@@ -215,7 +220,7 @@ keys.forEach(function (key) {
                 break;
 
             case "+/-":
-                tempHistoryAddEndPart(" × ( -1 ) ", " × ( -1 ) × ( -1 ) ");
+                tempHistoryAddEndPart("× ( -1 ) ");
                 calculateOutput.textContent = calculateOutput.textContent * -1;
                 deleteAllowed = true;
                 break;
@@ -223,8 +228,7 @@ keys.forEach(function (key) {
             case "=":
                 parCounter = 0;
                 addToHistory();
-                tempHistory.textContent = equalChecker();
-                tempHistory.textContent += " = ";
+                tempHistory.textContent = equalChecker() + " = ";
                 calcAnswer = showAns(true);
                 if (calcAnswer != tempHistory.textContent) addNum = false;
                 calculateOutput.textContent = calcAnswer;
@@ -239,6 +243,7 @@ keys.forEach(function (key) {
             case "×":
             case "÷":
                 parCounter = 0;
+                //addToHistory separator ⇩
                 calcAnswer = calcAnswer.toString();
                 let tempOperationCounter = 0;
                 trimAns();
@@ -251,6 +256,7 @@ keys.forEach(function (key) {
                     calcAnswer = showAns(false);
                     tempHistory.textContent = "";
                 }
+                //Enter back to back +-/* ⇩
                 if (operationAdd) {
                     tempHistory.textContent = tempHistory.textContent.replace(
                         tempHistory.textContent.charAt(
@@ -258,6 +264,7 @@ keys.forEach(function (key) {
                         ),
                         key.textContent
                     );
+                    //add to tempHistory correct operation ⇩
                 } else {
                     operationAdd = true;
                     showAns(true);
@@ -275,11 +282,17 @@ keys.forEach(function (key) {
                 deleteOutput = true;
                 deleteAllowed = true;
                 break;
+
             case ".":
+                if (calculateOutput.textContent.indexOf(".") != -1) {
+                    deleteAllowed = true;
+                    break;
+                }
                 if (deleteOutput) calculateOutput.textContent = "0";
                 calculateOutput.textContent += key.textContent;
                 deleteAllowed = true;
                 break;
+
             case "0":
             case "1":
             case "2":
@@ -292,17 +305,18 @@ keys.forEach(function (key) {
             case "9":
                 if (calculateOutput.textContent == "0")
                     calculateOutput.textContent = "";
+                //check operationAdd and add operation to tempHistory ⇩
                 operationAdd = false;
-                let tempCharChecker = tempHistory.textContent.charAt(
+                let charChecker = tempHistory.textContent.charAt(
                     tempHistory.textContent.length - 2
                 );
                 if (
-                    tempCharChecker == "+" ||
-                    tempCharChecker == "-" ||
-                    tempCharChecker == "×" ||
-                    tempCharChecker == "÷"
+                    charChecker == "+" ||
+                    charChecker == "-" ||
+                    charChecker == "×" ||
+                    charChecker == "÷"
                 )
-                    calcAnswer += tempCharChecker;
+                    calcAnswer += charChecker;
                 deleteAllowed = true;
             default:
                 calculateOutput.textContent += key.textContent;
@@ -310,17 +324,19 @@ keys.forEach(function (key) {
         if (!calculateOutput.textContent) calculateOutput.textContent = "0";
     });
 });
-function tempHistoryAddEndPart(checkFor, replace) {
-    if (tempHistory.textContent.indexOf(checkFor) == -1) {
-        console.log("first");
-        tempHistory.textContent += calculateOutput.textContent + checkFor;
+
+//for % and +/- ⇩
+function tempHistoryAddEndPart(operation) {
+    if (tempHistory.textContent.indexOf(operation) == -1) {
+        tempHistory.textContent +=
+            calculateOutput.textContent + " " + operation;
     } else {
-        tempHistory.textContent = tempHistory.textContent.replace(
-            checkFor,
-            replace
-        );
+        tempHistory.textContent += operation;
     }
+    addNum = false;
 }
+
+//function befor = to output ⇩
 function equalChecker() {
     let coppyTempHistory = tempHistory.textContent;
     const coppyCalculateOutput = calculateOutput.textContent;
@@ -331,6 +347,8 @@ function equalChecker() {
         coppyTempHistory += coppyCalculateOutput;
     return coppyTempHistory;
 }
+
+//trim calcAnswer ⇩
 function trimAns() {
     for (let i = 1; i <= calcAnswer.length; i++) {
         calcAnswer = calcAnswer.replace("--", "-");
@@ -339,12 +357,14 @@ function trimAns() {
         calcAnswer = calcAnswer.replace("÷÷", "÷");
     }
 }
+
+//return calculated calcAnswer by eval() ⇩
 function showAns(add) {
     trimAns();
     if (add) calcAnswer += calculateOutput.textContent;
     calcAnswer = calcAnswer.replace(/×/g, "*");
     calcAnswer = calcAnswer.replace(/÷/g, "/");
-    console.log("+R --> ", calcAnswer);
+    // console.log("+R --> ", calcAnswer);
     try {
         let tempCalc = eval(calcAnswer);
         calculateOutput.textContent = tempCalc;
@@ -354,8 +374,10 @@ function showAns(add) {
         tempHistory.textContent = "";
     }
 }
+
+//parCalculate for 2√x X^2 X^3 1/X ⇩
 let rootNum;
-function closePar(operation) {
+function parCalculate(operation) {
     parCounter++;
     if (parCounter == 1) {
         rootNum = calculateOutput.textContent;
@@ -369,12 +391,14 @@ function closePar(operation) {
     deleteAllowed = false;
 }
 
+//empty calcHistory ⇩
 if (!calcHistory.textContent) {
     calcHistory.innerHTML = `
     <div id="empty-history">There's no history yet</div>
     `;
 }
 
+//addToHistory by +-*/ and = ⇩
 function addToHistory() {
     if (
         calcHistory.innerHTML.trim() ==
@@ -386,32 +410,38 @@ function addToHistory() {
     spaceAdder = spaceAdder.replace("-", "  -  ");
     spaceAdder = spaceAdder.replace("×", "  ×  ");
     spaceAdder = spaceAdder.replace("÷", "  ÷  ");
+    spaceAdder = spaceAdder.replace("(   -  1 )", "( -1 )");
     trimAns();
     let tempAns = calcAnswer;
     tempAns += calculateOutput.textContent;
     tempAns = tempAns.replace(/×/g, "*");
     tempAns = tempAns.replace(/÷/g, "/");
-    let tempCalc = eval(tempAns);
-    console.log("=>", spaceAdder, tempCalc);
-    if (tempCalc) {
-        calcHistory.innerHTML =
-            `
+    try {
+        let tempCalc = eval(tempAns);
+
+        //add to History ⇩
+        if (tempCalc) {
+            calcHistory.innerHTML =
+                `
         <div class="history-box">
             <div class="history-box-tempHistory">${spaceAdder}</div>
             <div class="history-box-calculateOutput">${tempCalc}</div>
         </div>
     ` + calcHistory.innerHTML;
-        let tempHistoryAdder = tempHistory.textContent;
-        if (addNum) tempHistoryAdder += calculateOutput.textContent;
-        console.log(typeof objOfHistory);
-        objOfHistory.push(
-            new historyToObj(spaceAdder, tempCalc, equalChecker())
-        );
-        localStorage.setItem("localHistory", JSON.stringify(objOfHistory));
-        console.log(objOfHistory);
-    } else tempHistory.textContent = "";
+            //add to localStorge ⇩
+            objOfHistory.push(
+                new historyToObj(spaceAdder, tempCalc, equalChecker())
+            );
+            localStorage.setItem("localHistory", JSON.stringify(objOfHistory));
+        } else tempHistory.textContent = "";
+    } catch {
+        calculateOutput.textContent = "Oops error!";
+        tempHistory.textContent = "";
+    }
 }
 // localStorage.clear()
+
+//delete button ⇩
 const historyDeleteBtn = document.getElementById("history-delete-btn");
 historyDeleteBtn.addEventListener("click", function () {
     calcHistory.innerHTML = `
@@ -421,11 +451,14 @@ historyDeleteBtn.addEventListener("click", function () {
     localStorage.setItem("localHistory", []);
 });
 
+//obj constructor for localStorge ⇩
 function historyToObj(spaceAddedHistory, calculateOutput, tempHistory) {
     this.spaceAddedHistoryObj = spaceAddedHistory;
     this.calculateOutputObj = calculateOutput;
     this.tempHistoryObj = tempHistory;
 }
+
+//click on one historyBox ⇩
 const historyBox = document.getElementsByClassName("history-box");
 let historyBtnCounter = 0;
 document
@@ -435,10 +468,6 @@ document
             for (let i = 0; i < historyBox.length; i++) {
                 historyBox[i].addEventListener("click", function () {
                     let objNumber = historyBox.length - i - 1;
-                    console.log(
-                        objOfHistory[historyBox.length - i - 1]
-                            .calculateOutputObj
-                    );
                     calculateOutput.textContent =
                         objOfHistory[objNumber].calculateOutputObj;
                     tempHistory.textContent =

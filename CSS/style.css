@@ -53,29 +53,6 @@
 ::selection {
     background: transparent;
 }
-::-webkit-scrollbar {
-    width: 10px;
-    background: transparent;
-}
-::-webkit-scrollbar-track {
-    background: transparent;
-}
-::-webkit-scrollbar-thumb {
-    background: var(--dark-key-color);
-    height: 100px;
-    border-radius: 10px;
-    outline: 2px solid var(--background);
-    outline-offset: -2px;
-    transition: 0.5s;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--btn-hover);
-    outline: 1px solid var(--background);
-    outline-offset: -1px;
-}
-::selection {
-    background: transparent;
-}
 body {
     height: max(100vh, 410px);
     width: max(100%, 250px);
@@ -239,6 +216,26 @@ div.standard-2 a {
     overflow-x: hidden;
     overflow-y: scroll;
 }
+#calc-history::-webkit-scrollbar {
+    width: 10px;
+    background: transparent;
+}
+#calc-history::-webkit-scrollbar-track {
+    background: transparent;
+}
+#calc-history::-webkit-scrollbar-thumb {
+    background: var(--dark-key-color);
+    height: 100px;
+    border-radius: 10px;
+    outline: 2px solid var(--background);
+    outline-offset: -2px;
+    transition: 0.5s;
+}
+#calc-history::-webkit-scrollbar-thumb:hover {
+    background: var(--btn-hover);
+    outline: 1px solid var(--background);
+    outline-offset: -1px;
+}
 div.history-box {
     background: var(--background);
     margin: 5px;
@@ -290,7 +287,7 @@ div.history-box {
     grid-gap: 2px;
     padding: 2px;
 }
-.numbers div {
+.key {
     font-style: var(--font-style);
     background: var(--dark-key-color);
     border-radius: var(--radius-keys);
@@ -304,7 +301,7 @@ div.lighter-key {
     font-weight: 600;
     font-size: 1.5rem;
 }
-.numbers div:hover {
+.key:hover {
     background: var(--key-hover);
 }
 .windows-nav div:last-child:hover {
@@ -322,7 +319,7 @@ div.history-box:hover,
 #history-delete-btn:hover {
     background: var(--btn-hover);
 }
-.numbers div:active {
+.key:active {
     background: var(--active);
     opacity: 0.7;
 }
@@ -332,85 +329,85 @@ div.history-box:hover,
 .btn-hover:active,
 div.history-box:active,
 #history-delete-btn:active,
-.numbers div:last-child:active,
+.key:last-child:active,
 .windows-nav div:last-child:active,
 #history-nav div:nth-child(1):hover,
 #history-nav div:nth-child(2):hover {
     opacity: 0.7;
 }
-.numbers div:nth-child(1) {
+.key:nth-child(1) {
     order: 1;
 }
-.numbers div:nth-child(2) {
+.key:nth-child(2) {
     order: 5;
 }
-.numbers div:nth-child(3) {
+.key:nth-child(3) {
     order: 6;
 }
-.numbers div:nth-child(4) {
+.key:nth-child(4) {
     order: 7;
 }
-.numbers div:nth-child(5) {
+.key:nth-child(5) {
     order: 8;
 }
-.numbers div:nth-child(6) {
+.key:nth-child(6) {
     order: 2;
 }
-.numbers div:nth-child(7) {
+.key:nth-child(7) {
     order: 9;
 }
-.numbers div:nth-child(8) {
+.key:nth-child(8) {
     order: 10;
 }
-.numbers div:nth-child(9) {
+.key:nth-child(9) {
     order: 11;
 }
-.numbers div:nth-child(10) {
+.key:nth-child(10) {
     order: 12;
 }
-.numbers div:nth-child(11) {
+.key:nth-child(11) {
     order: 3;
 }
-.numbers div:nth-child(12) {
+.key:nth-child(12) {
     order: 13;
 }
-.numbers div:nth-child(13) {
+.key:nth-child(13) {
     order: 14;
 }
-.numbers div:nth-child(14) {
+.key:nth-child(14) {
     order: 15;
 }
-.numbers div:nth-child(15) {
+.key:nth-child(15) {
     order: 16;
 }
-.numbers div:nth-child(16) {
+.key:nth-child(16) {
     display: none;
 }
-.numbers div:nth-child(17) {
+.key:nth-child(17) {
     order: 17;
 }
-.numbers div:nth-child(18) {
+.key:nth-child(18) {
     order: 18;
 }
-.numbers div:nth-child(19) {
+.key:nth-child(19) {
     order: 19;
 }
-.numbers div:nth-child(20) {
+.key:nth-child(20) {
     order: 20;
 }
-.numbers div:nth-child(21) {
+.key:nth-child(21) {
     order: 4;
 }
-.numbers div:nth-child(22) {
+.key:nth-child(22) {
     order: 21;
 }
-.numbers div:nth-child(23) {
+.key:nth-child(23) {
     order: 22;
 }
-.numbers div:nth-child(24) {
+.key:nth-child(24) {
     order: 23;
 }
-.numbers div:nth-child(25) {
+.key:nth-child(25) {
     order: 24;
 }
 @media screen and (min-width: 550px) {
@@ -440,7 +437,7 @@ div.history-box:active,
     }
 }
 @media screen and (min-width: 1024px) {
-    .calculator .numbers div {
+    .calculator .key {
         order: 1;
         display: inline-flex;
     }
@@ -454,79 +451,79 @@ div.history-box:active,
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(6, 1fr);
     }
-    .numbers div:nth-child(1) {
+    .key:nth-child(1) {
         order: 1;
     }
-    .numbers div:nth-child(2) {
+    .key:nth-child(2) {
         order: 5;
     }
-    .numbers div:nth-child(3) {
+    .key:nth-child(3) {
         order: 6;
     }
-    .numbers div:nth-child(4) {
+    .key:nth-child(4) {
         order: 7;
     }
-    .numbers div:nth-child(5) {
+    .key:nth-child(5) {
         order: 8;
     }
-    .numbers div:nth-child(6) {
+    .key:nth-child(6) {
         order: 2;
     }
-    .numbers div:nth-child(7) {
+    .key:nth-child(7) {
         order: 9;
     }
-    .numbers div:nth-child(8) {
+    .key:nth-child(8) {
         order: 10;
     }
-    .numbers div:nth-child(9) {
+    .key:nth-child(9) {
         order: 11;
     }
-    .numbers div:nth-child(10) {
+    .key:nth-child(10) {
         order: 12;
     }
-    .numbers div:nth-child(11) {
+    .key:nth-child(11) {
         order: 3;
     }
-    .numbers div:nth-child(12) {
+    .key:nth-child(12) {
         order: 13;
     }
-    .numbers div:nth-child(13) {
+    .key:nth-child(13) {
         order: 14;
     }
-    .numbers div:nth-child(14) {
+    .key:nth-child(14) {
         order: 15;
     }
-    .numbers div:nth-child(15) {
+    .key:nth-child(15) {
         order: 16;
     }
-    .numbers div:nth-child(16) {
+    .key:nth-child(16) {
         display: none;
     }
-    .numbers div:nth-child(17) {
+    .key:nth-child(17) {
         order: 17;
     }
-    .numbers div:nth-child(18) {
+    .key:nth-child(18) {
         order: 18;
     }
-    .numbers div:nth-child(19) {
+    .key:nth-child(19) {
         order: 19;
     }
-    .numbers div:nth-child(20) {
+    .key:nth-child(20) {
         order: 20;
     }
-    .numbers div:nth-child(21) {
+    .key:nth-child(21) {
         order: 4;
     }
-    .numbers div:nth-child(22) {
+    .key:nth-child(22) {
         order: 21;
     }
-    .numbers div:nth-child(23) {
+    .key:nth-child(23) {
         order: 22;
     }
-    .numbers div:nth-child(24) {
+    .key:nth-child(24) {
         order: 23;
     }
-    .numbers div:nth-child(25) {
+    .key:nth-child(25) {
         order: 24;
     }
 }
