@@ -106,6 +106,7 @@ const calculateOutput = document.getElementById("calculate-output");
 const tempHistory = document.getElementById("temp-history");
 const calcHistory = document.getElementById("calc-history");
 const historyDeleteBtn = document.getElementById("history-delete-btn");
+const historyHr = document.querySelectorAll(".history-hr");
 let localMemory = localStorage.getItem("localMemory");
 let parCounter = 0;
 let calcAnswer = "";
@@ -120,7 +121,7 @@ let objOfMemory = [];
 calculateOutput.textContent = 0;
 
 const HistoryOrMemory = Array.from(
-    document.getElementsByClassName("History-Memory")
+    document.getElementsByClassName("history-memory")
 );
 HistoryOrMemory.forEach(function (page) {
     page.addEventListener("click", function () {
@@ -128,17 +129,21 @@ HistoryOrMemory.forEach(function (page) {
             case "History":
                 if (nextShowMemory) break;
                 nextShowMemory = true;
+                historyHr[1].style.opacity = "0";
+                historyHr[0].style.opacity = "1";
                 showHistory();
                 break;
             case "Memory":
                 if (!nextShowMemory) break;
-                showMemory();
                 nextShowMemory = false;
+                historyHr[0].style.opacity = "0";
+                historyHr[1].style.opacity = "1";
+                showMemory();
                 break;
         }
     });
 });
-
+historyHr[1].style.opacity = "0";
 //Restore History ⇩
 function showHistory() {
     const localHistory = localStorage.getItem("localHistory");
@@ -166,22 +171,24 @@ showHistory();
 //Restore Memory ⇩
 function showMemory() {
     localMemory = localStorage.getItem("localMemory");
-    if (localMemory.length>2) {
+    if (localMemory.length > 2) {
         objOfMemory = JSON.parse(localMemory);
-        calcHistory.innerHTML = "";
-        for (let i = objOfMemory.length - 1; i >= 0; i--) {
-            calcHistory.innerHTML += `
-            <div class="memory-box">
-                <div class="memory-box-number">${objOfMemory[i]}</div>
-                <div class="memory-box-btns">
-                    <div>MC</div>
-                    <div>M+</div>
-                    <div>M-</div>
+        if (!nextShowMemory) {
+            calcHistory.innerHTML = "";
+            for (let i = objOfMemory.length - 1; i >= 0; i--) {
+                calcHistory.innerHTML += `
+                <div class="memory-box">
+                    <div class="memory-box-number">${objOfMemory[i]}</div>
+                    <div class="memory-box-div">
+                        <div class="memory-box-mc">MC</div>
+                        <div class="memory-box-mp">M+</div>
+                        <div class="memory-box-mm">M-</div>
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
+            }
+            historyDeleteBtn.style.display = "flex";
         }
-        historyDeleteBtn.style.display = "flex";
     } else {
         calcHistory.innerHTML = `
             <div id="empty-history">There's nothing saved in memory</div>
@@ -552,10 +559,6 @@ mBtns.forEach(function (btn) {
         switch (btn.textContent) {
             case "MC":
                 objOfMemory = [];
-                calcHistory.innerHTML = `
-                    <div id="empty-history">There's nothing saved in memory</div>
-                `;
-                historyDeleteBtn.style.display = "none";
                 break;
             case "MR":
                 calculateOutput.textContent =
@@ -588,3 +591,58 @@ mBtns.forEach(function (btn) {
     });
 });
 // localStorage.clear()
+
+//click on one memoryBox ⇩
+const memoryBoxNum = document.getElementsByClassName("memory-box-number");
+const memoryBoxMc = document.getElementsByClassName("memory-box-mc");
+const memoryBoxMp = document.getElementsByClassName("memory-box-mp");
+const memoryBoxMm = document.getElementsByClassName("memory-box-mm");
+document
+    .getElementById("calc-history")
+    .addEventListener("mouseenter", function () {
+        try {
+            for (let i = 0; i < memoryBoxNum.length; i++) {
+                let objOfMemoryI = objOfMemory.length - i - 1;
+                memoryBoxNum[i].addEventListener("click", function () {
+                    calculateOutput.textContent = memoryBoxNum[i].textContent;
+                    calcAnswer = "";
+                    addNum = true;
+                });
+                memoryBoxMc[i].addEventListener("click", function () {
+                    objOfMemory.splice(objOfMemoryI, 1);
+                    localStorage.setItem(
+                        "localMemory",
+                        JSON.stringify(objOfMemory)
+                    );
+                    showMemory();
+                });
+                memoryBoxMp[i].addEventListener("click", function () {
+                    if (calculateOutput.textContent < 0) {
+                        objOfMemory[objOfMemoryI] = eval(
+                            objOfMemory[objOfMemoryI] +
+                                calculateOutput.textContent
+                        );
+                    } else {
+                        objOfMemory[objOfMemoryI] = eval(
+                            objOfMemory[objOfMemoryI] +
+                                "+" +
+                                calculateOutput.textContent
+                        );
+                    }
+                    localStorage.setItem(
+                        "localMemory",
+                        JSON.stringify(objOfMemory)
+                    );
+                    showMemory();
+                });
+                memoryBoxMm[i].addEventListener("click", function () {
+                    objOfMemory[objOfMemoryI] -= calculateOutput.textContent;
+                    localStorage.setItem(
+                        "localMemory",
+                        JSON.stringify(objOfMemory)
+                    );
+                    showMemory();
+                });
+            }
+        } catch {}
+    });
