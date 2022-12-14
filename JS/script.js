@@ -104,8 +104,9 @@ themeBtn.addEventListener("click", function () {
 const keys = Array.from(document.getElementsByClassName("key"));
 const calculateOutput = document.getElementById("calculate-output");
 const tempHistory = document.getElementById("temp-history");
-const localHistory = localStorage.getItem("localHistory");
 const calcHistory = document.getElementById("calc-history");
+const historyDeleteBtn = document.getElementById("history-delete-btn");
+let localMemory = localStorage.getItem("localMemory");
 let parCounter = 0;
 let calcAnswer = "";
 let newHistory = "";
@@ -113,19 +114,86 @@ let addNum = true;
 let deleteOutput = false;
 let operationAdd = false;
 let deleteAllowed = true;
+let nextShowMemory = true;
 let objOfHistory = [];
+let objOfMemory = [];
 calculateOutput.textContent = 0;
-if (localHistory) {
-    objOfHistory = JSON.parse(localHistory);
-    for (let i = objOfHistory.length - 1; i >= 0; i--) {
-        calcHistory.innerHTML += `
+
+const HistoryOrMemory = Array.from(
+    document.getElementsByClassName("History-Memory")
+);
+HistoryOrMemory.forEach(function (page) {
+    page.addEventListener("click", function () {
+        switch (page.textContent) {
+            case "History":
+                if (nextShowMemory) break;
+                nextShowMemory = true;
+                showHistory();
+                break;
+            case "Memory":
+                if (!nextShowMemory) break;
+                showMemory();
+                nextShowMemory = false;
+                break;
+        }
+    });
+});
+
+//Restore History ⇩
+function showHistory() {
+    const localHistory = localStorage.getItem("localHistory");
+    if (localHistory) {
+        objOfHistory = JSON.parse(localHistory);
+        calcHistory.innerHTML = "";
+        for (let i = objOfHistory.length - 1; i >= 0; i--) {
+            calcHistory.innerHTML += `
             <div class="history-box">
                 <div class="history-box-tempHistory">${objOfHistory[i].spaceAddedHistoryObj}</div>
                 <div class="history-box-calculateOutput">${objOfHistory[i].calculateOutputObj}</div>
             </div>
         `;
+        }
+        historyDeleteBtn.style.display = "flex";
+    } else {
+        calcHistory.innerHTML = `
+            <div id="empty-history">There's no history yet</div>
+        `;
+        historyDeleteBtn.style.display = "none";
     }
 }
+showHistory();
+
+//Restore Memory ⇩
+function showMemory() {
+    localMemory = localStorage.getItem("localMemory");
+    if (localMemory.length>2) {
+        objOfMemory = JSON.parse(localMemory);
+        calcHistory.innerHTML = "";
+        for (let i = objOfMemory.length - 1; i >= 0; i--) {
+            calcHistory.innerHTML += `
+            <div class="memory-box">
+                <div class="memory-box-number">${objOfMemory[i]}</div>
+                <div class="memory-box-btns">
+                    <div>MC</div>
+                    <div>M+</div>
+                    <div>M-</div>
+                </div>
+            </div>
+        `;
+        }
+        historyDeleteBtn.style.display = "flex";
+    } else {
+        calcHistory.innerHTML = `
+            <div id="empty-history">There's nothing saved in memory</div>
+        `;
+        historyDeleteBtn.style.display = "none";
+    }
+}
+
+if (localMemory) {
+    objOfMemory = JSON.parse(localMemory);
+}
+//Press the main keys ⇩
 keys.forEach(function (key) {
     key.addEventListener("click", function () {
         //newHistory after =  ⇩
@@ -391,20 +459,25 @@ function parCalculate(operation) {
     deleteAllowed = false;
 }
 
-//empty calcHistory ⇩
-if (!calcHistory.textContent) {
+//delete button ⇩
+historyDeleteBtn.addEventListener("click", function () {
     calcHistory.innerHTML = `
     <div id="empty-history">There's no history yet</div>
     `;
-}
+    historyDeleteBtn.style.display = "none";
+    objOfHistory = [];
+    localStorage.setItem("localHistory", []);
+});
 
 //addToHistory by +-*/ and = ⇩
 function addToHistory() {
     if (
         calcHistory.innerHTML.trim() ==
         `<div id="empty-history">There's no history yet</div>`
-    )
+    ) {
         calcHistory.innerHTML = "";
+        historyDeleteBtn.style.display = "flex";
+    }
     let spaceAdder = equalChecker() + "  = ";
     spaceAdder = spaceAdder.replace("+", "  +  ");
     spaceAdder = spaceAdder.replace("-", "  -  ");
@@ -421,13 +494,15 @@ function addToHistory() {
 
         //add to History ⇩
         if (tempCalc) {
-            calcHistory.innerHTML =
-                `
-        <div class="history-box">
-            <div class="history-box-tempHistory">${spaceAdder}</div>
-            <div class="history-box-calculateOutput">${tempCalc}</div>
-        </div>
-    ` + calcHistory.innerHTML;
+            if (nextShowMemory) {
+                calcHistory.innerHTML =
+                    `
+                    <div class="history-box">
+                        <div class="history-box-tempHistory">${spaceAdder}</div>
+                        <div class="history-box-calculateOutput">${tempCalc}</div>
+                    </div>
+                ` + calcHistory.innerHTML;
+            }
             //add to localStorge ⇩
             objOfHistory.push(
                 new historyToObj(spaceAdder, tempCalc, equalChecker())
@@ -440,16 +515,6 @@ function addToHistory() {
     }
 }
 // localStorage.clear()
-
-//delete button ⇩
-const historyDeleteBtn = document.getElementById("history-delete-btn");
-historyDeleteBtn.addEventListener("click", function () {
-    calcHistory.innerHTML = `
-    <div id="empty-history">There's no history yet</div>
-    `;
-    objOfHistory = [];
-    localStorage.setItem("localHistory", []);
-});
 
 //obj constructor for localStorge ⇩
 function historyToObj(spaceAddedHistory, calculateOutput, tempHistory) {
@@ -480,3 +545,46 @@ document
             }
         } catch {}
     });
+
+const mBtns = Array.from(document.getElementsByClassName("memory-btn"));
+mBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+        switch (btn.textContent) {
+            case "MC":
+                objOfMemory = [];
+                calcHistory.innerHTML = `
+                    <div id="empty-history">There's nothing saved in memory</div>
+                `;
+                historyDeleteBtn.style.display = "none";
+                break;
+            case "MR":
+                calculateOutput.textContent =
+                    objOfMemory[objOfMemory.length - 1];
+                break;
+            case "M+":
+                if (calculateOutput.textContent < 0) {
+                    objOfMemory[objOfMemory.length - 1] = eval(
+                        objOfMemory[objOfMemory.length - 1] +
+                            calculateOutput.textContent
+                    );
+                } else {
+                    objOfMemory[objOfMemory.length - 1] = eval(
+                        objOfMemory[objOfMemory.length - 1] +
+                            "+" +
+                            calculateOutput.textContent
+                    );
+                }
+                break;
+            case "M-":
+                objOfMemory[objOfMemory.length - 1] -=
+                    calculateOutput.textContent;
+                break;
+            case "MS":
+                objOfMemory.push(calculateOutput.textContent);
+                break;
+        }
+        localStorage.setItem("localMemory", JSON.stringify(objOfMemory));
+        showMemory();
+    });
+});
+// localStorage.clear()
