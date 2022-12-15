@@ -107,6 +107,7 @@ const tempHistory = document.getElementById("temp-history");
 const calcHistory = document.getElementById("calc-history");
 const historyDeleteBtn = document.getElementById("history-delete-btn");
 const historyHr = document.querySelectorAll(".history-hr");
+const grayBtns = document.getElementsByClassName("gray-btn");
 let localMemory = localStorage.getItem("localMemory");
 let parCounter = 0;
 let calcAnswer = "";
@@ -149,7 +150,7 @@ HistoryOrMemory.forEach(function (page) {
                 nextShowMemory = false;
                 historyHr[0].style.opacity = "0";
                 historyHr[1].style.opacity = "1";
-                showMemory();
+                showMemory(false);
                 document
                     .querySelectorAll(".memory-box")
                     .forEach(function (box) {
@@ -188,10 +189,11 @@ function showHistory() {
         historyDeleteBtn.style.display = "none";
     }
 }
+showMemory(false)
 showHistory();
 
 //Show Memory ⇩
-function showMemory() {
+function showMemory(numAdded) {
     localMemory = localStorage.getItem("localMemory");
     if (localMemory.length > 2) {
         objOfMemory = JSON.parse(localMemory);
@@ -208,16 +210,26 @@ function showMemory() {
                     </div>
                 </div>
             `;
-                let addBox = document.querySelectorAll(".memory-box");
-                addBoxAnimation(addBox[0]);
+                if (numAdded) {
+                    let addBox = document.querySelectorAll(".memory-box");
+                    addBoxAnimation(addBox[0]);
+                }
             }
             historyDeleteBtn.style.display = "flex";
         }
+        grayBtns[0].style.color = "white";
+        grayBtns[1].style.color = "white";
+        grayBtns[0].classList.add("btn-hover");
+        grayBtns[1].classList.add("btn-hover");
     } else {
         calcHistory.innerHTML = `
             <div id="empty-history">There's nothing saved in memory</div>
         `;
         historyDeleteBtn.style.display = "none";
+        grayBtns[0].style.color = "gray";
+        grayBtns[1].style.color = "gray";
+        grayBtns[0].classList.remove("btn-hover");
+        grayBtns[1].classList.remove("btn-hover");
     }
 }
 
@@ -501,7 +513,7 @@ historyDeleteBtn.addEventListener("click", function () {
     } else {
         localStorage.setItem("localMemory", []);
         objOfMemory = [];
-        showMemory();
+        showMemory(false);
     }
 });
 
@@ -537,9 +549,9 @@ function addToHistory() {
                         <div class="history-box-calculateOutput">${tempCalc}</div>
                     </div>
                 ` + calcHistory.innerHTML;
+                let addBox = document.querySelectorAll(".history-box");
+                addBoxAnimation(addBox[0]);
             }
-            let addBox = document.querySelectorAll(".history-box");
-            addBoxAnimation(addBox[0]);
             //add to localStorge ⇩
             objOfHistory.push(
                 new historyToObj(spaceAdder, tempCalc, equalChecker())
@@ -595,15 +607,24 @@ document
 const mBtns = Array.from(document.getElementsByClassName("memory-btn"));
 mBtns.forEach(function (btn) {
     btn.addEventListener("click", function () {
+        let MsPress = false;
         switch (btn.textContent) {
             case "MC":
+                if (objOfMemory.length < 1) break;
                 objOfMemory = [];
                 break;
             case "MR":
+                if (objOfMemory.length < 1) break;
                 calculateOutput.textContent =
                     objOfMemory[objOfMemory.length - 1];
                 break;
             case "M+":
+                if (objOfMemory.length < 1) {
+                    console.log(objOfMemory.length, objOfMemory);
+                    objOfMemory.push(calculateOutput.textContent);
+                    MsPress = true;
+                    break;
+                }
                 if (calculateOutput.textContent < 0) {
                     objOfMemory[objOfMemory.length - 1] = eval(
                         objOfMemory[objOfMemory.length - 1] +
@@ -618,11 +639,17 @@ mBtns.forEach(function (btn) {
                 }
                 break;
             case "M-":
+                if (objOfMemory.length < 1) {
+                    objOfMemory.push(calculateOutput.textContent * -1);
+                    MsPress = true;
+                    break;
+                }
                 objOfMemory[objOfMemory.length - 1] -=
                     calculateOutput.textContent;
                 break;
             case "MS":
                 objOfMemory.push(calculateOutput.textContent);
+                MsPress = true;
                 break;
         }
         tempHistory.textContent = "";
@@ -630,7 +657,10 @@ mBtns.forEach(function (btn) {
         calcAnswer = "";
         addNum = false;
         localStorage.setItem("localMemory", JSON.stringify(objOfMemory));
-        showMemory();
+        if (MsPress) {
+            showMemory(true);
+            MsPress = false;
+        } else showMemory(false);
     });
 });
 // localStorage.clear()
@@ -659,7 +689,7 @@ document
                     "localMemory",
                     JSON.stringify(objOfMemory)
                 );
-                showMemory();
+                showMemory(false);
             });
             //click on M+ ⇩
             memoryBoxMp[i].addEventListener("click", function () {
@@ -678,7 +708,7 @@ document
                     "localMemory",
                     JSON.stringify(objOfMemory)
                 );
-                showMemory();
+                showMemory(false);
             });
             //click on M- ⇩
             memoryBoxMm[i].addEventListener("click", function () {
@@ -687,7 +717,7 @@ document
                     "localMemory",
                     JSON.stringify(objOfMemory)
                 );
-                showMemory();
+                showMemory(false);
             });
         }
     });
