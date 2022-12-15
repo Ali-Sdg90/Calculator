@@ -132,6 +132,16 @@ HistoryOrMemory.forEach(function (page) {
                 historyHr[1].style.opacity = "0";
                 historyHr[0].style.opacity = "1";
                 showHistory();
+                document
+                    .querySelectorAll(".history-box")
+                    .forEach(function (box) {
+                        box.style.transform = "translate(-20px)";
+                        box.style.opacity = 0;
+                        setTimeout(() => {
+                            box.style.transform = "translate(0px)";
+                            box.style.opacity = 1;
+                        }, 70);
+                    });
                 break;
             case "Memory":
                 if (!nextShowMemory) break;
@@ -139,6 +149,17 @@ HistoryOrMemory.forEach(function (page) {
                 historyHr[0].style.opacity = "0";
                 historyHr[1].style.opacity = "1";
                 showMemory();
+                document
+                    .querySelectorAll(".memory-box")
+                    .forEach(function (box) {
+                        box.style.transform = "translate(20px)";
+                        box.style.opacity = 0;
+                        setTimeout(() => {
+                            box.style.transform = "translate(0px)";
+                            box.style.opacity = 1;
+                        }, 70);
+                    });
+
                 break;
         }
     });
@@ -228,6 +249,7 @@ keys.forEach(function (key) {
                 calculateOutput.textContent = "";
         }
         deleteOutput = false;
+        if (!tempHistory.textContent) addNum = true;
         switch (key.textContent) {
             case "DEL":
                 if (!deleteAllowed) break;
@@ -468,12 +490,15 @@ function parCalculate(operation) {
 
 //delete button ⇩
 historyDeleteBtn.addEventListener("click", function () {
-    calcHistory.innerHTML = `
-    <div id="empty-history">There's no history yet</div>
-    `;
-    historyDeleteBtn.style.display = "none";
-    objOfHistory = [];
-    localStorage.setItem("localHistory", []);
+    if (nextShowMemory) {
+        localStorage.setItem("localHistory", []);
+        objOfHistory = [];
+        showHistory();
+    } else {
+        localStorage.setItem("localMemory", []);
+        objOfMemory = [];
+        showMemory();
+    }
 });
 
 //addToHistory by +-*/ and = ⇩
@@ -586,6 +611,10 @@ mBtns.forEach(function (btn) {
                 objOfMemory.push(calculateOutput.textContent);
                 break;
         }
+        tempHistory.textContent = "";
+        parCounter = 0;
+        calcAnswer = "";
+        addNum = false;
         localStorage.setItem("localMemory", JSON.stringify(objOfMemory));
         showMemory();
     });
@@ -607,6 +636,8 @@ document
                     calculateOutput.textContent = memoryBoxNum[i].textContent;
                     calcAnswer = "";
                     addNum = true;
+                    tempHistory.textContent = "";
+                    
                 });
                 memoryBoxMc[i].addEventListener("click", function () {
                     objOfMemory.splice(objOfMemoryI, 1);

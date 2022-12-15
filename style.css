@@ -243,6 +243,7 @@ div.memory-box {
     margin: 5px;
     border-radius: var(--radius-btns);
     z-index: 1;
+    transition: 0.2s;
 }
 .history-box div {
     background: transparent;
@@ -287,6 +288,13 @@ div.memory-box-number {
     transition: var(--transition);
     font-size: 0.9rem;
     height: 28px;
+    cursor: pointer;
+}
+.memory-box-div div:hover {
+    background: var(--btn-hover);
+}
+.memory-box-div div:active {
+    background: var(--active);
 }
 div.memory-box:hover {
     background-color: var(--dark-key-color);
@@ -309,6 +317,7 @@ div.memory-box:hover .memory-box-div div {
     font-weight: 100;
     border-radius: var(--radius-btns);
     background: var(--background);
+    cursor: pointer;
 }
 .numbers {
     grid-area: numbers;
