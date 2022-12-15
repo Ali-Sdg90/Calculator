@@ -120,6 +120,7 @@ let objOfHistory = [];
 let objOfMemory = [];
 calculateOutput.textContent = 0;
 
+//change page history/memory ⇩
 const HistoryOrMemory = Array.from(
     document.getElementsByClassName("history-memory")
 );
@@ -159,13 +160,13 @@ HistoryOrMemory.forEach(function (page) {
                             box.style.opacity = 1;
                         }, 70);
                     });
-
                 break;
         }
     });
 });
 historyHr[1].style.opacity = "0";
-//Restore History ⇩
+
+//Show History ⇩
 function showHistory() {
     const localHistory = localStorage.getItem("localHistory");
     if (localHistory) {
@@ -189,7 +190,7 @@ function showHistory() {
 }
 showHistory();
 
-//Restore Memory ⇩
+//Show Memory ⇩
 function showMemory() {
     localMemory = localStorage.getItem("localMemory");
     if (localMemory.length > 2) {
@@ -207,6 +208,8 @@ function showMemory() {
                     </div>
                 </div>
             `;
+                let addBox = document.querySelectorAll(".memory-box");
+                addBoxAnimation(addBox[0]);
             }
             historyDeleteBtn.style.display = "flex";
         }
@@ -221,6 +224,7 @@ function showMemory() {
 if (localMemory) {
     objOfMemory = JSON.parse(localMemory);
 }
+
 //Press the main keys ⇩
 keys.forEach(function (key) {
     key.addEventListener("click", function () {
@@ -461,7 +465,7 @@ function showAns(add) {
     if (add) calcAnswer += calculateOutput.textContent;
     calcAnswer = calcAnswer.replace(/×/g, "*");
     calcAnswer = calcAnswer.replace(/÷/g, "/");
-    // console.log("+R --> ", calcAnswer);
+    // console.log("calcAnswer --> ", calcAnswer);
     try {
         let tempCalc = eval(calcAnswer);
         calculateOutput.textContent = tempCalc;
@@ -501,7 +505,7 @@ historyDeleteBtn.addEventListener("click", function () {
     }
 });
 
-//addToHistory by +-*/ and = ⇩
+//addToHistory & localStorge by +-*/ and = ⇩
 function addToHistory() {
     if (
         calcHistory.innerHTML.trim() ==
@@ -523,7 +527,6 @@ function addToHistory() {
     tempAns = tempAns.replace(/÷/g, "/");
     try {
         let tempCalc = eval(tempAns);
-
         //add to History ⇩
         if (tempCalc) {
             if (nextShowMemory) {
@@ -535,6 +538,8 @@ function addToHistory() {
                     </div>
                 ` + calcHistory.innerHTML;
             }
+            let addBox = document.querySelectorAll(".history-box");
+            addBoxAnimation(addBox[0]);
             //add to localStorge ⇩
             objOfHistory.push(
                 new historyToObj(spaceAdder, tempCalc, equalChecker())
@@ -548,36 +553,45 @@ function addToHistory() {
 }
 // localStorage.clear()
 
-//obj constructor for localStorge ⇩
+//add animation for history and memory
+function addBoxAnimation(addBox) {
+    addBox.style.transform = "translate(0,-20px)";
+    addBox.style.opacity = 0;
+    setTimeout(() => {
+        addBox.style.transform = "translate(0,0)";
+        addBox.style.opacity = 1;
+    }, 70);
+}
+
+//obj constructor for history localStorge ⇩
 function historyToObj(spaceAddedHistory, calculateOutput, tempHistory) {
     this.spaceAddedHistoryObj = spaceAddedHistory;
     this.calculateOutputObj = calculateOutput;
     this.tempHistoryObj = tempHistory;
 }
 
-//click on one historyBox ⇩
+//click on historyBox ⇩
 const historyBox = document.getElementsByClassName("history-box");
 let historyBtnCounter = 0;
 document
     .getElementById("calc-history")
     .addEventListener("mouseenter", function () {
-        try {
-            for (let i = 0; i < historyBox.length; i++) {
-                historyBox[i].addEventListener("click", function () {
-                    let objNumber = historyBox.length - i - 1;
-                    calculateOutput.textContent =
-                        objOfHistory[objNumber].calculateOutputObj;
-                    tempHistory.textContent =
-                        objOfHistory[objNumber].tempHistoryObj;
-                    if (historyBtnCounter++ > 0)
-                        newHistory = objOfHistory[objNumber].calculateOutputObj;
-                    calcAnswer = "";
-                    addNum = false;
-                });
-            }
-        } catch {}
+        for (let i = 0; i < historyBox.length; i++) {
+            historyBox[i].addEventListener("click", function () {
+                let objNumber = historyBox.length - i - 1;
+                calculateOutput.textContent =
+                    objOfHistory[objNumber].calculateOutputObj;
+                tempHistory.textContent =
+                    objOfHistory[objNumber].tempHistoryObj;
+                if (historyBtnCounter++ > 0)
+                    newHistory = objOfHistory[objNumber].calculateOutputObj;
+                calcAnswer = "";
+                addNum = false;
+            });
+        }
     });
 
+//click on MC / MR / M+ / M- ⇩
 const mBtns = Array.from(document.getElementsByClassName("memory-btn"));
 mBtns.forEach(function (btn) {
     btn.addEventListener("click", function () {
@@ -621,7 +635,7 @@ mBtns.forEach(function (btn) {
 });
 // localStorage.clear()
 
-//click on one memoryBox ⇩
+//click on memoryBox ⇩
 const memoryBoxNum = document.getElementsByClassName("memory-box-number");
 const memoryBoxMc = document.getElementsByClassName("memory-box-mc");
 const memoryBoxMp = document.getElementsByClassName("memory-box-mp");
@@ -629,51 +643,51 @@ const memoryBoxMm = document.getElementsByClassName("memory-box-mm");
 document
     .getElementById("calc-history")
     .addEventListener("mouseenter", function () {
-        try {
-            for (let i = 0; i < memoryBoxNum.length; i++) {
-                let objOfMemoryI = objOfMemory.length - i - 1;
-                memoryBoxNum[i].addEventListener("click", function () {
-                    calculateOutput.textContent = memoryBoxNum[i].textContent;
-                    calcAnswer = "";
-                    addNum = true;
-                    tempHistory.textContent = "";
-                    
-                });
-                memoryBoxMc[i].addEventListener("click", function () {
-                    objOfMemory.splice(objOfMemoryI, 1);
-                    localStorage.setItem(
-                        "localMemory",
-                        JSON.stringify(objOfMemory)
+        for (let i = 0; i < memoryBoxNum.length; i++) {
+            let objOfMemoryI = objOfMemory.length - i - 1;
+            //click on number ⇩
+            memoryBoxNum[i].addEventListener("click", function () {
+                calculateOutput.textContent = memoryBoxNum[i].textContent;
+                calcAnswer = "";
+                addNum = true;
+                tempHistory.textContent = "";
+            });
+            //click on MC ⇩
+            memoryBoxMc[i].addEventListener("click", function () {
+                objOfMemory.splice(objOfMemoryI, 1);
+                localStorage.setItem(
+                    "localMemory",
+                    JSON.stringify(objOfMemory)
+                );
+                showMemory();
+            });
+            //click on M+ ⇩
+            memoryBoxMp[i].addEventListener("click", function () {
+                if (calculateOutput.textContent < 0) {
+                    objOfMemory[objOfMemoryI] = eval(
+                        objOfMemory[objOfMemoryI] + calculateOutput.textContent
                     );
-                    showMemory();
-                });
-                memoryBoxMp[i].addEventListener("click", function () {
-                    if (calculateOutput.textContent < 0) {
-                        objOfMemory[objOfMemoryI] = eval(
-                            objOfMemory[objOfMemoryI] +
-                                calculateOutput.textContent
-                        );
-                    } else {
-                        objOfMemory[objOfMemoryI] = eval(
-                            objOfMemory[objOfMemoryI] +
-                                "+" +
-                                calculateOutput.textContent
-                        );
-                    }
-                    localStorage.setItem(
-                        "localMemory",
-                        JSON.stringify(objOfMemory)
+                } else {
+                    objOfMemory[objOfMemoryI] = eval(
+                        objOfMemory[objOfMemoryI] +
+                            "+" +
+                            calculateOutput.textContent
                     );
-                    showMemory();
-                });
-                memoryBoxMm[i].addEventListener("click", function () {
-                    objOfMemory[objOfMemoryI] -= calculateOutput.textContent;
-                    localStorage.setItem(
-                        "localMemory",
-                        JSON.stringify(objOfMemory)
-                    );
-                    showMemory();
-                });
-            }
-        } catch {}
+                }
+                localStorage.setItem(
+                    "localMemory",
+                    JSON.stringify(objOfMemory)
+                );
+                showMemory();
+            });
+            //click on M- ⇩
+            memoryBoxMm[i].addEventListener("click", function () {
+                objOfMemory[objOfMemoryI] -= calculateOutput.textContent;
+                localStorage.setItem(
+                    "localMemory",
+                    JSON.stringify(objOfMemory)
+                );
+                showMemory();
+            });
+        }
     });
