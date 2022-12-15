@@ -189,12 +189,13 @@ function showHistory() {
         historyDeleteBtn.style.display = "none";
     }
 }
-showMemory(false)
+showMemory(false);
 showHistory();
 
 //Show Memory ⇩
 function showMemory(numAdded) {
     localMemory = localStorage.getItem("localMemory");
+    if (!localMemory) localMemory = [];
     if (localMemory.length > 2) {
         objOfMemory = JSON.parse(localMemory);
         if (!nextShowMemory) {
@@ -231,10 +232,6 @@ function showMemory(numAdded) {
         grayBtns[0].classList.remove("btn-hover");
         grayBtns[1].classList.remove("btn-hover");
     }
-}
-
-if (localMemory) {
-    objOfMemory = JSON.parse(localMemory);
 }
 
 //Press the main keys ⇩
