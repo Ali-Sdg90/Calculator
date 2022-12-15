@@ -617,7 +617,6 @@ mBtns.forEach(function (btn) {
                 break;
             case "M+":
                 if (objOfMemory.length < 1) {
-                    console.log(objOfMemory.length, objOfMemory);
                     objOfMemory.push(calculateOutput.textContent);
                     MsPress = true;
                     break;
