@@ -376,80 +376,8 @@ div.memory-box-div div:active,
 #history-nav div:nth-child(2):hover {
     opacity: 0.7;
 }
-.key:nth-child(1) {
-    order: 1;
-}
-.key:nth-child(2) {
-    order: 5;
-}
-.key:nth-child(3) {
-    order: 6;
-}
-.key:nth-child(4) {
-    order: 7;
-}
-.key:nth-child(5) {
-    order: 8;
-}
-.key:nth-child(6) {
-    order: 2;
-}
-.key:nth-child(7) {
-    order: 9;
-}
-.key:nth-child(8) {
-    order: 10;
-}
-.key:nth-child(9) {
-    order: 11;
-}
-.key:nth-child(10) {
-    order: 12;
-}
-.key:nth-child(11) {
-    order: 3;
-}
-.key:nth-child(12) {
-    order: 13;
-}
-.key:nth-child(13) {
-    order: 14;
-}
-.key:nth-child(14) {
-    order: 15;
-}
-.key:nth-child(15) {
-    order: 16;
-}
 .key:nth-child(16) {
     display: none;
-}
-.key:nth-child(17) {
-    order: 17;
-}
-.key:nth-child(18) {
-    order: 18;
-}
-.key:nth-child(19) {
-    order: 19;
-}
-.key:nth-child(20) {
-    order: 20;
-}
-.key:nth-child(21) {
-    order: 4;
-}
-.key:nth-child(22) {
-    order: 21;
-}
-.key:nth-child(23) {
-    order: 22;
-}
-.key:nth-child(24) {
-    order: 23;
-}
-.key:nth-child(25) {
-    order: 24;
 }
 @media screen and (min-width: 550px) {
     .calculator {
@@ -492,79 +420,7 @@ div.memory-box-div div:active,
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(6, 1fr);
     }
-    .key:nth-child(1) {
-        order: 1;
-    }
-    .key:nth-child(2) {
-        order: 5;
-    }
-    .key:nth-child(3) {
-        order: 6;
-    }
-    .key:nth-child(4) {
-        order: 7;
-    }
-    .key:nth-child(5) {
-        order: 8;
-    }
-    .key:nth-child(6) {
-        order: 2;
-    }
-    .key:nth-child(7) {
-        order: 9;
-    }
-    .key:nth-child(8) {
-        order: 10;
-    }
-    .key:nth-child(9) {
-        order: 11;
-    }
-    .key:nth-child(10) {
-        order: 12;
-    }
-    .key:nth-child(11) {
-        order: 3;
-    }
-    .key:nth-child(12) {
-        order: 13;
-    }
-    .key:nth-child(13) {
-        order: 14;
-    }
-    .key:nth-child(14) {
-        order: 15;
-    }
-    .key:nth-child(15) {
-        order: 16;
-    }
     .key:nth-child(16) {
         display: none;
-    }
-    .key:nth-child(17) {
-        order: 17;
-    }
-    .key:nth-child(18) {
-        order: 18;
-    }
-    .key:nth-child(19) {
-        order: 19;
-    }
-    .key:nth-child(20) {
-        order: 20;
-    }
-    .key:nth-child(21) {
-        order: 4;
-    }
-    .key:nth-child(22) {
-        order: 21;
-    }
-    .key:nth-child(23) {
-        order: 22;
-    }
-    .key:nth-child(24) {
-        order: 23;
-    }
-    .key:nth-child(25) {
-        order: 24;
     }
 }
