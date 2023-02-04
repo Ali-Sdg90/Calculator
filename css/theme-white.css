@@ -1,0 +1,15 @@
+:root {
+  --font-family: sans-serif;
+  --font-style: normal;
+  --transition: 0.5s;
+  --radius-keys: 2px;
+  --radius-btns: 4px;
+  --main-color: black;
+  --background: rgb(203, 203, 203);
+  --line-color: rgb(208, 134, 65);
+  --light-key-color: rgb(241, 241, 241);
+  --dark-key-color: rgb(228, 228, 228);
+  --btn-hover: rgb(188, 188, 188);
+  --active: rgb(191, 191, 191);
+  --key-hover: rgb(200, 200, 200);
+}/*# sourceMappingURL=theme-white.css.map */
