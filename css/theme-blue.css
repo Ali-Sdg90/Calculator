@@ -1,7 +1,7 @@
 :root {
   --font-family: cursive;
   --font-style: italic;
-  --transition: 0.5s;
+  --transition: 0s;
   --radius-keys: 15px 0;
   --radius-btns: 10px;
   --main-color: black;

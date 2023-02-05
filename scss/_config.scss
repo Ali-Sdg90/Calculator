@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -17,4 +17,8 @@
 body {
     height: max(100vh, 410px);
     width: max(100%, 250px);
+}
+
+a {
+    text-decoration: none;
 }

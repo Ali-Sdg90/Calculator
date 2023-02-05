@@ -19,6 +19,10 @@ body {
   width: max(100%, 250px);
 }
 
+a {
+  text-decoration: none;
+}
+
 @media screen and (min-width: 550px) {
   .calculator {
     grid-template-columns: 57% 43% !important;
@@ -256,7 +260,7 @@ body {
   margin: 5px;
   border-radius: var(--radius-btns);
   z-index: 1;
-  transition: 0.2s;
+  transition: all 0.3s;
 }
 .history-box div {
   background: transparent;
@@ -287,7 +291,7 @@ body {
   margin: 5px;
   border-radius: var(--radius-btns);
   z-index: 1;
-  transition: 0.2s;
+  transition: 0.3s;
 }
 .memory-box > div {
   background: transparent;

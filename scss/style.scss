@@ -230,7 +230,7 @@
     margin: 5px;
     border-radius: var(--radius-btns);
     z-index: 1;
-    transition: 0.2s;
+    transition: all 0.3s;
 
     & div {
         background: transparent;
@@ -265,7 +265,7 @@
     margin: 5px;
     border-radius: var(--radius-btns);
     z-index: 1;
-    transition: 0.2s;
+    transition: 0.3s;
 
     & > div {
         background: transparent;

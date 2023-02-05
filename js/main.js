@@ -115,8 +115,8 @@ function showMemory(numAdded) {
             }
             historyDeleteBtn.style.display = "flex";
         }
-        grayBtns[0].style.color = "white";
-        grayBtns[1].style.color = "white";
+        grayBtns[0].style.color = "var(--main-color)";
+        grayBtns[1].style.color = "var(--main-color)";
         grayBtns[0].classList.add("btn-hover");
         grayBtns[1].classList.add("btn-hover");
     } else {
@@ -365,15 +365,17 @@ function trimAns() {
     }
 }
 
-//return calculated calcAnswer by eval() ⇩
+//return calculated calcAnswer by calc() ⇩
 function showAns(add) {
     trimAns();
     if (add) calcAnswer += calculateOutput.textContent;
     calcAnswer = calcAnswer.replace(/×/g, "*");
     calcAnswer = calcAnswer.replace(/÷/g, "/");
-    // console.log("calcAnswer --> ", calcAnswer);
+
+    console.log("calcAnswer --> ", calcAnswer);
+
     try {
-        let tempCalc = eval(calcAnswer);
+        let tempCalc = calc(calcAnswer);
         calculateOutput.textContent = tempCalc;
         return tempCalc;
     } catch {
@@ -432,7 +434,7 @@ function addToHistory() {
     tempAns = tempAns.replace(/×/g, "*");
     tempAns = tempAns.replace(/÷/g, "/");
     try {
-        let tempCalc = eval(tempAns);
+        let tempCalc = calc(tempAns);
         //add to History ⇩
         if (tempCalc) {
             if (nextShowMemory) {
@@ -456,4 +458,10 @@ function addToHistory() {
         calculateOutput.textContent = "Oops error!";
         tempHistory.textContent = "";
     }
+}
+
+//better method for calculate than use eval() ⇩
+function calc(str) {
+    const tempFunc = new Function("return " + str);
+    return tempFunc();
 }
