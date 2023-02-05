@@ -9,3 +9,12 @@
     font-style: normal;
     cursor: default;
 }
+
+::selection {
+    background: transparent;
+}
+
+body {
+    height: max(100vh, 410px);
+    width: max(100%, 250px);
+}

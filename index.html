@@ -6,12 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Calculator Step4</title>
 
-        <link rel="stylesheet" href="css/theme-black.css" id="theme-stylesheet"/>
+        <link rel="stylesheet" id="theme-stylesheet" />
         <link rel="stylesheet" href="css/style.css" />
     </head>
     <body>
         <div class="calculator">
-
             <div class="header">
                 <div class="header__app-name">Calculator</div>
                 <div class="header__windows-nav">
@@ -23,15 +22,24 @@
 
             <div class="standard">
                 <div class="standard__left">
-                    <p class="btn-hover" id="change-theme">lll</p>
-                    <p>Standard</p>
+                    <p
+                        class="standard__left__element btn-hover"
+                        id="change-theme"
+                    >
+                        lll
+                    </p>
+                    <p class="standard__left__element">Standard</p>
                 </div>
                 <div class="standard__right">
-                    <a class="btn-hover" href="https://b2n.ir/d31846">ↈ</a>
+                    <a
+                        class="standard__right__element btn-hover"
+                        href="https://b2n.ir/d31846"
+                        >ↈ</a
+                    >
                 </div>
             </div>
 
-            <div id="calculate">
+            <div class="calculate">
                 <div class="calculate__temp-history"></div>
                 <div class="calculate__output"></div>
             </div>
@@ -43,7 +51,7 @@
                 <div class="memory-btn btn-hover">M-</div>
                 <div class="memory-btn btn-hover">MS</div>
             </div>
-            
+
             <div class="history">
                 <div class="history__nav">
                     <div class="history-memory">History</div>
@@ -55,7 +63,7 @@
                 </div>
 
                 <div id="calc-history"></div>
-                
+
                 <!-- <div class="memory-box">
                     <div class="memory-box-number">${objOfMemory[i]}</div>
                     <div class="memory-box-div">
@@ -104,7 +112,9 @@
                 <div class="key extra-large">=</div>
             </div>
         </div>
+        <script src="js/history-memory.js"></script>
         <script src="js/theme-changer.js"></script>
-        <script src="js/script.js"></script>
+        <script src="js/key-order.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>
