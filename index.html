@@ -4,46 +4,48 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>W10 Calculator</title>
-        <!-- <link rel="stylesheet" href="css/theme-white.css" /> -->
-        <!-- <link rel="stylesheet" href="css/theme-black.css" /> -->
-        <!-- <link rel="stylesheet" href="css/theme-green.css" /> -->
-        <!-- <link rel="stylesheet" href="css/theme-blue.css" /> -->
+        <title>Calculator Step4</title>
+
         <link rel="stylesheet" href="css/theme-black.css" id="theme-stylesheet"/>
         <link rel="stylesheet" href="css/style.css" />
     </head>
     <body>
         <div class="calculator">
+
             <div class="header">
-                <div id="app-name">Calculator</div>
-                <div class="windows-nav">
+                <div class="header__app-name">Calculator</div>
+                <div class="header__windows-nav">
                     <div class="btn-hover">–</div>
                     <div class="btn-hover">▢</div>
                     <div>✕</div>
                 </div>
             </div>
+
             <div class="standard">
-                <div class="standard-1">
+                <div class="standard__left">
                     <p class="btn-hover" id="change-theme">lll</p>
                     <p>Standard</p>
                 </div>
-                <div class="standard-2">
+                <div class="standard__right">
                     <a class="btn-hover" href="https://b2n.ir/d31846">ↈ</a>
                 </div>
             </div>
+
             <div id="calculate">
-                <div id="temp-history"></div>
-                <div id="calculate-output"></div>
+                <div class="calculate__temp-history"></div>
+                <div class="calculate__output"></div>
             </div>
-            <div class="mode">
+
+            <div class="memory-btns">
                 <div class="memory-btn gray-btn">MC</div>
                 <div class="memory-btn gray-btn">MR</div>
                 <div class="memory-btn btn-hover">M+</div>
                 <div class="memory-btn btn-hover">M-</div>
                 <div class="memory-btn btn-hover">MS</div>
             </div>
+            
             <div class="history">
-                <div id="history-nav">
+                <div class="history__nav">
                     <div class="history-memory">History</div>
                     <div class="history-memory">Memory</div>
                     <div></div>
@@ -51,7 +53,9 @@
                     <div><hr class="history-hr" /></div>
                     <div></div>
                 </div>
+
                 <div id="calc-history"></div>
+                
                 <!-- <div class="memory-box">
                     <div class="memory-box-number">${objOfMemory[i]}</div>
                     <div class="memory-box-div">
@@ -60,16 +64,19 @@
                         <div class="memory-box-mm">M-</div>
                     </div>
                 </div> -->
+
                 <!-- <div id="empty-history">There's no history yet</div> -->
+
                 <!-- <div class="history-box">
                         <div class="history-box-tempHistory">25   +   6 = </div>
                         <div class="history-box-calculateOutput">31</div>
                     </div> -->
-                <div id="history-delete-div">
-                    <div id="history-delete-btn">DEL</div>
+
+                <div class="history-delete">
+                    <div class="history-delete__btn">DEL</div>
                 </div>
             </div>
-            <div class="numbers">
+            <div class="keys">
                 <div class="key">%</div>
                 <div class="key">CE</div>
                 <div class="key">C</div>
@@ -97,7 +104,7 @@
                 <div class="key extra-large">=</div>
             </div>
         </div>
-        <div id="transition-circle"></div>
+        <script src="js/theme-changer.js"></script>
         <script src="js/script.js"></script>
     </body>
 </html>

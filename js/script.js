@@ -1,73 +1,8 @@
-const themeBtn = document.getElementById("change-theme");
-const localTheme = localStorage.getItem("localTheme");
-const transitionCircle = document.getElementById("transition-circle");
-let themeCounter = 0;
-
-localStorage.clear();
-
-if (localTheme) themeCounter = Number(localTheme);
-changeTheme();
-function changeTheme() {
-    switch (themeCounter) {
-        //black ⇩
-        case 0:
-            // transitionEffect("./css/theme-black.css");
-            document.getElementById("theme-stylesheet").href = "./css/theme-black.css";
-            break;
-        //white ⇩
-        case 1:
-            // transitionEffect("./css/theme-white.css");
-            document.getElementById("theme-stylesheet").href = "./css/theme-white.css"
-            break;
-        //green ⇩
-        case 2:
-            // transitionEffect("./css/theme-green.css");
-            document.getElementById("theme-stylesheet").href = "./css/theme-green.css"
-            break;
-        //blue ⇩
-        case 3:
-            // transitionEffect("./css/theme-blue.css");
-            document.getElementById("theme-stylesheet").href = "./css/theme-blue.css"
-            break;
-    }
-    // setTimeout(() => {
-    //     document.documentElement.style.setProperty(
-    //         "--transition",
-    //         "color 0.15s, background-color 0.15s"
-    //     );
-    // }, 500);
-    localStorage.setItem("localTheme", themeCounter);
-}
-themeBtn.addEventListener("click", function () {
-    if (themeCounter > 2) {
-        themeCounter = 0;
-        localStorage.setItem("localTheme", 0);
-    } else themeCounter++;
-    changeTheme();
-});
-
-function transitionEffect(path) {
-    transitionCircle.style.display = "block";
-    setTimeout(() => {
-        transitionCircle.style.outlineWidth = "2000px";
-    }, 1);
-    setTimeout(() => {
-        transitionCircle.style.outlineWidth = "0px";
-        document.getElementById("theme-stylesheet").href = path;
-    }, 480);
-    setTimeout(() => {
-        transitionCircle.style.display = "none";
-    }, 990);
-}
-//---------------------
-
-//Calculator calculation operations :
-
 const keys = Array.from(document.getElementsByClassName("key"));
-const calculateOutput = document.getElementById("calculate-output");
-const tempHistory = document.getElementById("temp-history");
+const calculateOutput = document.querySelector(".calculate__output");
+const tempHistory = document.querySelector(".calculate__temp-history");
 const calcHistory = document.getElementById("calc-history");
-const historyDeleteBtn = document.getElementById("history-delete-btn");
+const historyDeleteBtn = document.querySelector(".history-delete__btn");
 const historyHr = document.querySelectorAll(".history-hr");
 const grayBtns = document.getElementsByClassName("gray-btn");
 let localMemory = localStorage.getItem("localMemory");
@@ -165,8 +100,8 @@ function showMemory(numAdded) {
             for (let i = objOfMemory.length - 1; i >= 0; i--) {
                 calcHistory.innerHTML += `
                 <div class="memory-box">
-                    <div class="memory-box-number">${objOfMemory[i]}</div>
-                    <div class="memory-box-div">
+                    <div class="memory-box__number">${objOfMemory[i]}</div>
+                    <div class="memory-box__btns">
                         <div class="memory-box-mc">MC</div>
                         <div class="memory-box-mp">M+</div>
                         <div class="memory-box-mm">M-</div>
@@ -624,7 +559,7 @@ mBtns.forEach(function (btn) {
 // localStorage.clear()
 
 //click on memoryBox ⇩
-const memoryBoxNum = document.getElementsByClassName("memory-box-number");
+const memoryBoxNum = document.getElementsByClassName("memory-box__number");
 const memoryBoxMc = document.getElementsByClassName("memory-box-mc");
 const memoryBoxMp = document.getElementsByClassName("memory-box-mp");
 const memoryBoxMm = document.getElementsByClassName("memory-box-mm");
