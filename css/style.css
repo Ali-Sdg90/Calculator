@@ -291,7 +291,7 @@ a {
   margin: 5px;
   border-radius: var(--radius-btns);
   z-index: 1;
-  transition: 0.3s;
+  transition: all 0.3s;
 }
 .memory-box > div {
   background: transparent;
