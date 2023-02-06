@@ -1,12 +1,12 @@
 <h1>Calculator</h1>
 <p>
-    Calculator Step 1:
+    Calculator Step 1 :
     <a href="https://jsfiddle.net/Ali_Sdg90/m6za93ct/7/" target="_new"
         >jsfiddle</a
     >
 </p>
 <p>
-    Calculator Step 2:
+    Calculator Step 2 :
     <a href="https://jsfiddle.net/Ali_Sdg90/cmLy0kjz/13/" target="_new"
         >jsfiddle</a
     >
@@ -18,7 +18,7 @@
     >
 </p>
 <p>
-    Calculator Step 3 (Themeable):
+    Calculator Step 3 (Themeable) :
     <a href="https://jsfiddle.net/Ali_Sdg90/4ge5u26b/8/" target="_new"
         >jsfiddle</a
     >
@@ -30,7 +30,7 @@
     >
 </p>
 <p>
-    Calculator Step 3 (Calculable):
+    Calculator Step 3 (Calculable) :
     <a href="https://jsfiddle.net/Ali_Sdg90/vrub5a19/7/" target="_new"
         >jsfiddle</a
     >
@@ -42,7 +42,7 @@
     >
 </p>
 <p>
-    Calculator Step 4:
+    Calculator Step 4 :
     <a
         href="https://github.com/Ali-Sdg90/Calculator/tree/a4638b29f55d1f69c5337c48254ecb7777642994"
         target="_new"
