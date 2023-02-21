@@ -8,11 +8,11 @@
     /* grid-template-rows: 4% 6% 20% 5% 65%; */
     grid-template-rows: 28px 6fr 20fr 5fr 65fr;
     grid-template-areas:
-        "header     header"
-        "standard   standard"
-        "calculate  calculate"
-        "memory-btns       memory-btns"
-        "keys    keys";
+        "header         header"
+        "standard       standard"
+        "calculate      calculate"
+        "memory-btns    memory-btns"
+        "keys           keys";
     background: var(--background);
 }
 
