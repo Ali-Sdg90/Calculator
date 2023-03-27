@@ -60,12 +60,12 @@ mBtns.forEach(function (btn) {
                     break;
                 }
                 if (calculateOutput.textContent < 0) {
-                    objOfMemory[objOfMemory.length - 1] = eval(
+                    objOfMemory[objOfMemory.length - 1] = calc(
                         objOfMemory[objOfMemory.length - 1] +
                             calculateOutput.textContent
                     );
                 } else {
-                    objOfMemory[objOfMemory.length - 1] = eval(
+                    objOfMemory[objOfMemory.length - 1] = calc(
                         objOfMemory[objOfMemory.length - 1] +
                             "+" +
                             calculateOutput.textContent
@@ -128,11 +128,11 @@ document
             //click on M+ ⇩
             memoryBoxMp[i].addEventListener("click", function () {
                 if (calculateOutput.textContent < 0) {
-                    objOfMemory[objOfMemoryI] = eval(
+                    objOfMemory[objOfMemoryI] = calc(
                         objOfMemory[objOfMemoryI] + calculateOutput.textContent
                     );
                 } else {
-                    objOfMemory[objOfMemoryI] = eval(
+                    objOfMemory[objOfMemoryI] = calc(
                         objOfMemory[objOfMemoryI] +
                             "+" +
                             calculateOutput.textContent
@@ -155,3 +155,9 @@ document
             });
         }
     });
+
+//better method for calculate than use eval() ⇩
+function calc(str) {
+    const tempFunc = new Function("return " + str);
+    return tempFunc();
+}
