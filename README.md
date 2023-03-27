@@ -100,7 +100,6 @@
         target="_new"
         >View on GitHub</a
     >
-    | <a href="#" target="_new">View on JSFiddle</a>
 </p>
 <h2>Conclusion</h2>
 <p>

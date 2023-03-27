@@ -15,7 +15,7 @@
 }
 
 body {
-  height: max(100vh, 410px);
+  height: max(100svh, 410px);
   width: max(100%, 250px);
 }
 
@@ -25,41 +25,41 @@ a {
 
 @media screen and (min-width: 550px) {
   .calculator {
-    grid-template-columns: 57% 43% !important;
-    grid-template-rows: 28px 6fr 18fr 7fr 65fr !important;
-    grid-template-areas: "header     header" "standard   history" "calculate  history" "memory-btns       history" "keys    history" !important;
+    grid-template-columns: 57% 43%;
+    grid-template-rows: 28px 6fr 18fr 7fr 65fr;
+    grid-template-areas: "header            header" "standard          history" "calculate         history" "memory-btns       history" "keys              history";
   }
   .standard__right {
-    visibility: hidden !important;
+    visibility: hidden;
   }
   .history {
-    display: block !important;
+    display: block;
   }
   .calculator .history {
-    display: grid !important;
+    display: grid;
   }
 }
 @media screen and (min-width: 740px) {
   .calculator {
-    grid-template-columns: auto 320px !important;
+    grid-template-columns: auto 320px;
   }
 }
 @media screen and (min-width: 1024px) {
   .key {
-    display: inline-flex !important;
+    display: inline-flex;
   }
   .keys {
-    grid-template-columns: repeat(5, 1fr) !important;
-    grid-template-rows: repeat(5, 1fr) !important;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
   }
 }
 @media screen and (max-height: 620px) {
   .keys {
-    grid-template-columns: repeat(4, 1fr) !important;
-    grid-template-rows: repeat(6, 1fr) !important;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
   }
   .key:nth-child(16) {
-    display: none !important;
+    display: none;
   }
 }
 .calculator {
@@ -68,7 +68,7 @@ a {
   grid-template-columns: 100%;
   /* grid-template-rows: 4% 6% 20% 5% 65%; */
   grid-template-rows: 28px 6fr 20fr 5fr 65fr;
-  grid-template-areas: "header     header" "standard   standard" "calculate  calculate" "memory-btns       memory-btns" "keys    keys";
+  grid-template-areas: "header         header" "standard       standard" "calculate      calculate" "memory-btns    memory-btns" "keys           keys";
   background: var(--background);
 }
 
