@@ -14,7 +14,7 @@
     from desktop view to tablet view.
 </p>
 <p>
-    <img src="" alt="Step 1" />
+    <img src="/" alt="Step 1" />
 </p>
 <p>
     <a href="https://jsfiddle.net/Ali_Sdg90/m6za93ct/7/" target="_new"
