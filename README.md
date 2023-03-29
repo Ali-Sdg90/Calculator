@@ -14,7 +14,7 @@
     from desktop view to tablet view.
 </p>
 <p>
-    <img src="/imgs/step 1.gif" alt="Step 1" />
+    <img src="/imgs/step 1.gif" alt="Step 1" height="293px" width="520px" />
 </p>
 <p>
     <a href="https://jsfiddle.net/Ali_Sdg90/m6za93ct/7/" target="_new"
@@ -29,7 +29,7 @@
     layout based on the screen size of the device.
 </p>
 <p>
-    <img src="imgs/step 2.gif" alt="Step 2" />
+    <img src="imgs/step 2.gif" alt="Step 2" height="293px" width="520px" />
 </p>
 <p>
     <a
@@ -56,7 +56,7 @@
     blue theme and a dark mode theme.
 </p>
 <p>
-    <img src="imgs/step 3A.gif" alt="Step 3A" />
+    <img src="imgs/step 3A.gif" alt="Step 3A" height="293px" width="520px" />
 </p>
 <p>
     <a
@@ -75,12 +75,30 @@
     calculation functionalities using JavaScript.
 </p>
 <ul>
-    <li>History + Calculable Calculator :</li><br />
-    <img src="imgs/step 3B1.gif" alt="Step 3B1" /><br /><br />
-    <li>Memory Functioning :</li><br />
-    <img src="imgs/step 3B2.gif" alt="Step 3B2" /><br /><br />
-    <li>Having LocalStorage :</li><br />
-    <img src="imgs/step 3B3.gif" alt="Step 3B3" /><br />
+    <li>History + Calculable Calculator :</li>
+    <br />
+    <img
+        src="imgs/step 3B1.gif"
+        alt="Step 3B1"
+        height="293px"
+        width="520px"
+    /><br /><br />
+    <li>Memory Functioning :</li>
+    <br />
+    <img
+        src="imgs/step 3B2.gif"
+        alt="Step 3B2"
+        height="293px"
+        width="520px"
+    /><br /><br />
+    <li>Having LocalStorage :</li>
+    <br />
+    <img
+        src="imgs/step 3B3.gif"
+        alt="Step 3B3"
+        height="293px"
+        width="520px"
+    /><br />
 </ul>
 <p>
     <a
@@ -100,7 +118,7 @@
     from the previous step using SCSS/SASS.
 </p>
 <p>
-    <img src="imgs/step 4.gif" alt="Step 4" />
+    <img src="imgs/step 4.gif" alt="Step 4" height="293px" width="520px" />
 </p>
 <p>
     <a
