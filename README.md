@@ -28,7 +28,7 @@
     layout based on the screen size of the device.
 </p>
 <p>
-    <img src="" alt="Step 2" />
+    <img src="imgs/step 2.gif" alt="Step 2" />
 </p>
 <p>
     <a
@@ -54,7 +54,7 @@
     blue theme and a dark mode theme.
 </p>
 <p>
-    <img src="" alt="Step 3A" />
+    <img src="imgs/step 3A.gif" alt="Step 3A" />
 </p>
 <p>
     <a
@@ -73,7 +73,9 @@
     calculation functionalities using JavaScript.
 </p>
 <p>
-    <img src="" alt="Step 3B" />
+    <img src="imgs/step 3B1.gif" alt="Step 3B1" /><br /><br />
+    <img src="imgs/step 3B2.gif" alt="Step 3B2" /><br /><br />
+    <img src="imgs/step 3B3.gif" alt="Step 3B3" />
 </p>
 <p>
     <a
@@ -92,7 +94,7 @@
     from the previous step using SCSS/SASS.
 </p>
 <p>
-    <img src="" alt="Step 4" />
+    <img src="imgs/step 4.gif" alt="Step 4" />
 </p>
 <p>
     <a
@@ -100,7 +102,6 @@
         target="_new"
         >View on GitHub</a
     >
-    | <a href="#" target="_new">View on JSFiddle</a>
 </p>
 <h2>Conclusion</h2>
 <p>
