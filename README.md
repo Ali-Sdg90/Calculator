@@ -21,6 +21,7 @@
         >View on JSFiddle</a
     >
 </p>
+<hr />
 <h3>Step 2: Implement a Responsive Calculator</h3>
 <p>
     In this step, we will make the calculator responsive just like the Windows
@@ -41,6 +42,7 @@
         >View on JSFiddle</a
     >
 </p>
+<hr />
 <h3>Step 3: Make the Calculator Functional</h3>
 <p>
     In this step, we will add the ability to theme the calculator. We will add a
@@ -72,11 +74,14 @@
     In this substep, we will enhance the standard calculator by adding
     calculation functionalities using JavaScript.
 </p>
-<p>
+<ul>
+    <li>History + Calculable Calculator :</li><br />
     <img src="imgs/step 3B1.gif" alt="Step 3B1" /><br /><br />
+    <li>Memory Functioning :</li><br />
     <img src="imgs/step 3B2.gif" alt="Step 3B2" /><br /><br />
-    <img src="imgs/step 3B3.gif" alt="Step 3B3" />
-</p>
+    <li>Having LocalStorage :</li><br />
+    <img src="imgs/step 3B3.gif" alt="Step 3B3" /><br />
+</ul>
 <p>
     <a
         href="https://github.com/Ali-Sdg90/Calculator-step3/tree/72b2e63abf5891a70f69654c35c02fa4ee0e62b6"
@@ -88,6 +93,7 @@
         >View on JSFiddle</a
     >
 </p>
+<hr />
 <h3>Step 4: Refactor the Style and Themeable with SCSS/SASS</h3>
 <p>
     In this step, we will refactor the style and themeable of the calculator
