@@ -17,7 +17,7 @@
     <img src="/imgs/step 1.gif" alt="Step 1" height="293px" width="520px" />
 </p>
 <p>
-    <a href="https://jsfiddle.net/Ali_Sdg90/m6za93ct/7/" target="_new"
+    <a href="https://jsfiddle.net/Ali_Sdg90/m6za93ct/10/" target="_new"
         >View on JSFiddle</a
     >
 </p>
