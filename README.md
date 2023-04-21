@@ -17,7 +17,13 @@
     <img src="/imgs/step 1.gif" alt="Step 1" height="293px" width="520px" />
 </p>
 <p>
-    <a href="https://jsfiddle.net/Ali_Sdg90/m6za93ct/10/" target="_new"
+    <a
+        href="https://github.com/Ali-Sdg90/Calculator/tree/main/Previous-Steps/Step1"
+        target="_new"
+        >View on GitHub</a
+    >
+    |
+    <a href="https://jsfiddle.net/Ali_Sdg90/m6za93ct/13/" target="_new"
         >View on JSFiddle</a
     >
 </p>
