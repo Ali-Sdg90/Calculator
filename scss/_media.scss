@@ -1,7 +1,7 @@
 @media screen and (min-width: 550px) {
-    .calculator {
+    div.calculator {
         grid-template-columns: 57% 43%;
-        grid-template-rows: 28px 6fr 18fr 7fr 65fr;
+        grid-template-rows: 28px 7fr 24fr 6fr 58.51fr;
         grid-template-areas:
             "header            header"
             "standard          history"
@@ -9,39 +9,39 @@
             "memory-btns       history"
             "keys              history";
     }
-    .standard__right {
+    div.standard__right {
         visibility: hidden;
     }
-    .history {
+    div.history {
         display: block;
     }
-    .calculator .history {
+    div.calculator .history {
         display: grid;
     }
 }
 
 @media screen and (min-width: 740px) {
-    .calculator {
+    div.calculator {
         grid-template-columns: auto 320px;
     }
 }
 
 @media screen and (min-width: 1024px) {
-    .key {
-        display: inline-flex;
+    div.key {
+        display: inline-flex !important;
     }
-    .keys {
+    div.keys {
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: repeat(5, 1fr);
     }
 }
 
 @media screen and (max-height: 620px) {
-    .keys {
+    div.keys {
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(6, 1fr);
     }
-    .key:nth-child(16) {
-        display: none;
+    div.key:nth-child(16) {
+        display: none !important;
     }
 }

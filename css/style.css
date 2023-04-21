@@ -16,6 +16,7 @@
 
 body {
   height: max(100vh, 410px);
+  height: max(100svh, 410px);
   width: max(100%, 250px);
 }
 
@@ -24,41 +25,41 @@ a {
 }
 
 @media screen and (min-width: 550px) {
-  .calculator {
-    grid-template-columns: 57% 43% !important;
-    grid-template-rows: 28px 6fr 18fr 7fr 65fr !important;
-    grid-template-areas: "header     header" "standard   history" "calculate  history" "memory-btns       history" "keys    history" !important;
+  div.calculator {
+    grid-template-columns: 57% 43%;
+    grid-template-rows: 28px 7fr 24fr 6fr 58.51fr;
+    grid-template-areas: "header            header" "standard          history" "calculate         history" "memory-btns       history" "keys              history";
   }
-  .standard__right {
-    visibility: hidden !important;
+  div.standard__right {
+    visibility: hidden;
   }
-  .history {
-    display: block !important;
+  div.history {
+    display: block;
   }
-  .calculator .history {
-    display: grid !important;
+  div.calculator .history {
+    display: grid;
   }
 }
 @media screen and (min-width: 740px) {
-  .calculator {
-    grid-template-columns: auto 320px !important;
+  div.calculator {
+    grid-template-columns: auto 320px;
   }
 }
 @media screen and (min-width: 1024px) {
-  .key {
+  div.key {
     display: inline-flex !important;
   }
-  .keys {
-    grid-template-columns: repeat(5, 1fr) !important;
-    grid-template-rows: repeat(5, 1fr) !important;
+  div.keys {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
   }
 }
 @media screen and (max-height: 620px) {
-  .keys {
-    grid-template-columns: repeat(4, 1fr) !important;
-    grid-template-rows: repeat(6, 1fr) !important;
+  div.keys {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
   }
-  .key:nth-child(16) {
+  div.key:nth-child(16) {
     display: none !important;
   }
 }
@@ -67,8 +68,8 @@ a {
   display: grid;
   grid-template-columns: 100%;
   /* grid-template-rows: 4% 6% 20% 5% 65%; */
-  grid-template-rows: 28px 6fr 20fr 5fr 65fr;
-  grid-template-areas: "header     header" "standard   standard" "calculate  calculate" "memory-btns       memory-btns" "keys    keys";
+  grid-template-rows: 28px 7fr 24fr 6fr 58.51fr;
+  grid-template-areas: "header         header" "standard       standard" "calculate      calculate" "memory-btns    memory-btns" "keys           keys";
   background: var(--background);
 }
 
@@ -130,9 +131,10 @@ a {
   width: 40px;
   height: 40px;
 }
-.standard__left__element:last-child, .standard__right:last-child {
+.standard__left__element:nth-child(2), .standard__right:nth-child(2) {
   font-size: 1.1rem;
   margin-left: 7px;
+  width: 72px;
 }
 .standard__right {
   visibility: visible;
@@ -144,6 +146,15 @@ a {
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-btns);
+}
+
+.svg-color {
+  overflow: hidden;
+  display: flex;
+}
+.svg-color path {
+  transition: var(--transition);
+  fill: var(--svg-color);
 }
 
 .calculate {
@@ -341,7 +352,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 3px 8px;
+  padding: 5px 1px 0 1px;
   margin: 5px;
   font-weight: 100;
   border-radius: var(--radius-btns);

@@ -34,7 +34,7 @@ function changeTheme() {
     setTimeout(() => {
         document.documentElement.style.setProperty(
             "--transition",
-            "background 0.3s, color 0.3s, border-radius 0.5s, opacity 0.3s"
+            "background 0.3s, color 0.3s, border-radius 0.5s, opacity 0.3s, fill 0.3s"
         );
     }, 300);
 }
