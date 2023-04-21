@@ -1,0 +1,9 @@
+.svg-color {
+    overflow: hidden;
+    display: flex;
+
+    path {
+        transition: var(--transition);
+        fill: var(--svg-color);
+    }
+}

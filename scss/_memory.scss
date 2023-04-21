@@ -1,0 +1,78 @@
+.memory-box {
+    background: var(--background);
+    margin: 5px;
+    border-radius: var(--radius-btns);
+    z-index: 1;
+    transition: all 0.3s;
+
+    & > div {
+        background: transparent;
+        display: flex;
+        justify-content: right;
+        padding-right: 12px;
+        font-weight: 100;
+    }
+
+    &__number {
+        padding: 7px 12px 2px;
+        font-size: 1.4rem;
+    }
+
+    &__btns {
+        height: 33px;
+
+        & div {
+            border-radius: var(--radius-btns);
+            padding: 5px 7px;
+            margin-left: 1px;
+            display: none;
+            background: var(--light-key-color);
+            transition: var(--transition);
+            font-size: 0.9rem;
+            height: 28px;
+            cursor: pointer;
+
+            &:hover {
+                background: var(--btn-hover);
+            }
+
+            &:active {
+                background: var(--active);
+            }
+        }
+    }
+
+    &:hover {
+        background-color: var(--dark-key-color);
+
+        & .memory-box__btns div {
+            display: flex;
+        }
+    }
+}
+
+.memory-btns {
+    grid-area: memory-btns;
+    font-size: 0;
+    max-width: 400px;
+    margin-bottom: 1px;
+
+    & div {
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 20%;
+        border-radius: var(--radius-btns);
+
+        &:nth-child(1) {
+            color: gray;
+        }
+
+        &:nth-child(2) {
+            color: gray;
+        }
+    }
+}

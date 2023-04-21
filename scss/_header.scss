@@ -1,0 +1,40 @@
+.header {
+    grid-area: header;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 14px;
+
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.9rem;
+        font-family: sans-serif;
+    }
+
+    &__app-name {
+        margin-top: 5px;
+    }
+
+    &__windows-nav div {
+        width: 44px;
+        height: 100%;
+
+        &:last-child {
+            padding-bottom: 3px;
+
+            &:hover {
+                background: rgb(218, 60, 60);
+                color: white;
+            }
+        }
+
+        &:hover {
+            cursor: default;
+        }
+    }
+}
+
+#change-theme {
+    font-family: sans-serif;
+}

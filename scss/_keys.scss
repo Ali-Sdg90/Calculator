@@ -1,0 +1,60 @@
+.keys {
+    grid-area: keys;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-gap: 2px;
+    padding: 2px;
+}
+
+.key {
+    font-style: var(--font-style);
+    background: var(--dark-key-color);
+    border-radius: var(--radius-keys);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    &:hover {
+        background: var(--key-hover);
+    }
+
+    &:active {
+        background: var(--active);
+        opacity: 0.7;
+    }
+
+    &:nth-child(16) {
+        display: none;
+    }
+}
+
+.lighter-key {
+    background: var(--light-key-color);
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.btn-hover {
+    cursor: pointer;
+
+    &:hover {
+        background: var(--btn-hover);
+    }
+}
+
+.extra-large {
+    font-size: 1.8rem;
+}
+
+.btn-hover:active,
+div.history-box:active,
+div.memory-box__btns div:active,
+.history-delete__btn:active,
+.key:last-child:active,
+.header__windows-nav div:last-child:active,
+.history__nav div:nth-child(1):hover,
+.history__nav div:nth-child(2):hover {
+    opacity: 0.7;
+}
