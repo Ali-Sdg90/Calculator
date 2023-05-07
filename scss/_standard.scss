@@ -31,7 +31,6 @@
     }
 
     &__right {
-        @extend .standard__left__element;
         visibility: visible;
 
         &__element {

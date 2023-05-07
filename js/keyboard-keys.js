@@ -74,6 +74,8 @@ document.addEventListener("keyup", function (event) {
             case "Enter":
                 keyboardKeys[24].click();
                 break;
+            default:
+                break;
         }
     }
 });

@@ -1,9 +1,10 @@
 .svg-color {
     overflow: hidden;
     display: flex;
-
-    path {
-        transition: var(--transition);
-        fill: var(--svg-color);
-    }
+    transition: var(--transition);
+    // filter: invert(0%) sepia(91%) saturate(7497%) hue-rotate(79deg)
+    //     brightness(100%) contrast(100%);
+    // filter: invert(93%) sepia(7%) saturate(30%) hue-rotate(323deg)
+    //     brightness(106%) contrast(106%);
+    filter: var(--svg-filter);
 }

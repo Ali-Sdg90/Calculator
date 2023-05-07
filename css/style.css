@@ -70,19 +70,19 @@ a {
   display: flex;
   align-items: center;
 }
-.standard__left__element, .standard__right {
+.standard__left__element {
   font-size: 1.2rem;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   border-radius: var(--radius-btns);
 }
-.standard__left__element:first-child, .standard__right:first-child {
+.standard__left__element:first-child {
   transform: rotate(90deg);
   width: 40px;
   height: 40px;
 }
-.standard__left__element:nth-child(2), .standard__right:nth-child(2) {
+.standard__left__element:nth-child(2) {
   font-size: 1.1rem;
   margin-left: 7px;
   width: 72px;
@@ -362,10 +362,8 @@ div.memory-box__btns div:active,
 .svg-color {
   overflow: hidden;
   display: flex;
-}
-.svg-color path {
   transition: var(--transition);
-  fill: var(--svg-color);
+  filter: var(--svg-filter);
 }
 
 @media screen and (min-width: 550px) {

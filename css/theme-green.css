@@ -12,5 +12,6 @@
   --btn-hover: rgb(54, 165, 51);
   --active: rgb(54, 165, 51);
   --key-hover: rgb(54, 165, 51);
-  --svg-color: #000000;
+  --svg-filter: invert(0%) sepia(91%) saturate(7497%) hue-rotate(79deg)
+      brightness(100%) contrast(100%);
 }/*# sourceMappingURL=theme-green.css.map */
