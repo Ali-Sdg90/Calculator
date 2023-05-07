@@ -134,13 +134,14 @@ function showMemory(numAdded) {
 //Press the main keys ⇩
 keys.forEach(function (key) {
     key.addEventListener("click", function () {
+        let newKey = key.getAttribute("value");
         //newHistory after =  ⇩
         if (newHistory) {
             if (
-                key.textContent != "CE" &&
-                key.textContent != "X^3" &&
-                key.textContent != "X^2" &&
-                key.textContent != "2√x"
+                newKey != "CE" &&
+                newKey != "X³" &&
+                newKey != "X²" &&
+                newKey != "√x"
             ) {
                 tempHistory.textContent = newHistory;
                 calcAnswer = newHistory;
@@ -151,16 +152,12 @@ keys.forEach(function (key) {
         newHistory = "";
         //deleteOutput after = & +-/* ⇩
         if (deleteOutput) {
-            if (
-                key.textContent != "X^3" &&
-                key.textContent != "X^2" &&
-                key.textContent != "2√x"
-            )
+            if (newKey != "X³" && newKey != "X²" && newKey != "√x")
                 calculateOutput.textContent = "";
         }
         deleteOutput = false;
         if (!tempHistory.textContent) addNum = true;
-        switch (key.textContent) {
+        switch (newKey) {
             case "DEL":
                 if (!deleteAllowed) break;
                 if (
@@ -195,14 +192,14 @@ keys.forEach(function (key) {
                 deleteAllowed = false;
                 break;
 
-            case "2√x":
+            case "√x":
                 parCalculate("√ ( ");
                 calculateOutput.textContent = Math.sqrt(
                     calculateOutput.textContent
                 );
                 break;
 
-            case "X^2":
+            case "X²":
                 parCalculate("sqr ( ");
                 calculateOutput.textContent = Math.pow(
                     calculateOutput.textContent,
@@ -210,7 +207,7 @@ keys.forEach(function (key) {
                 );
                 break;
 
-            case "X^3":
+            case "X³":
                 parCalculate("cube ( ");
                 calculateOutput.textContent = Math.pow(
                     calculateOutput.textContent,
@@ -269,7 +266,7 @@ keys.forEach(function (key) {
                         tempHistory.textContent.charAt(
                             tempHistory.textContent.length - 2
                         ),
-                        key.textContent
+                        newKey
                     );
                     //add to tempHistory correct operation ⇩
                 } else {
@@ -277,12 +274,9 @@ keys.forEach(function (key) {
                     showAns(true);
                     if (addNum) {
                         tempHistory.textContent +=
-                            calculateOutput.textContent +
-                            " " +
-                            key.textContent +
-                            " ";
+                            calculateOutput.textContent + " " + newKey + " ";
                     } else {
-                        tempHistory.textContent += " " + key.textContent + " ";
+                        tempHistory.textContent += " " + newKey + " ";
                     }
                 }
                 addNum = true;
@@ -296,7 +290,7 @@ keys.forEach(function (key) {
                     break;
                 }
                 if (deleteOutput) calculateOutput.textContent = "0";
-                calculateOutput.textContent += key.textContent;
+                calculateOutput.textContent += newKey;
                 deleteAllowed = true;
                 break;
 
@@ -326,7 +320,7 @@ keys.forEach(function (key) {
                     calcAnswer += charChecker;
                 deleteAllowed = true;
             default:
-                calculateOutput.textContent += key.textContent;
+                calculateOutput.textContent += newKey;
         }
         if (!calculateOutput.textContent) calculateOutput.textContent = "0";
     });
@@ -384,7 +378,7 @@ function showAns(add) {
     }
 }
 
-//parCalculate for 2√x X^2 X^3 1/X ⇩
+//parCalculate for √x X² X³ 1/X ⇩
 let rootNum;
 function parCalculate(operation) {
     parCounter++;
