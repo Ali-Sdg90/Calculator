@@ -14,7 +14,7 @@
     from desktop view to tablet view.
 </p>
 <p>
-    <img src="/imgs/step 1.gif" alt="Step 1" height="293px" width="520px" />
+    <img src="/Gifs/step 1.gif" alt="Step 1" height="283px" width="600px" />
 </p>
 <p>
     <a
@@ -35,7 +35,7 @@
     layout based on the screen size of the device.
 </p>
 <p>
-    <img src="imgs/step 2.gif" alt="Step 2" height="293px" width="520px" />
+    <img src="Gifs/step 2.gif" alt="Step 2" height="283px" width="600px" />
 </p>
 <p>
     <a
@@ -62,7 +62,7 @@
     blue theme and a dark mode theme.
 </p>
 <p>
-    <img src="imgs/step 3A.gif" alt="Step 3A" height="293px" width="520px" />
+    <img src="Gifs/step 3A.gif" alt="Step 3A" height="293px" width="520px" />
 </p>
 <p>
     <a
@@ -84,7 +84,7 @@
     <li>History + Calculable Calculator :</li>
     <br />
     <img
-        src="imgs/step 3B1.gif"
+        src="Gifs/step 3B1.gif"
         alt="Step 3B1"
         height="293px"
         width="520px"
@@ -92,7 +92,7 @@
     <li>Memory Functioning :</li>
     <br />
     <img
-        src="imgs/step 3B2.gif"
+        src="Gifs/step 3B2.gif"
         alt="Step 3B2"
         height="293px"
         width="520px"
@@ -100,7 +100,7 @@
     <li>Having LocalStorage :</li>
     <br />
     <img
-        src="imgs/step 3B3.gif"
+        src="Gifs/step 3B3.gif"
         alt="Step 3B3"
         height="293px"
         width="520px"
@@ -124,7 +124,7 @@
     from the previous step using SCSS/SASS.
 </p>
 <p>
-    <img src="imgs/step 4.gif" alt="Step 4" height="293px" width="520px" />
+    <img src="Gifs/step 4.gif" alt="Step 4" height="293px" width="520px" />
 </p>
 <p>
     <a
